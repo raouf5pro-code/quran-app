@@ -13,6 +13,7 @@
             --primary-color: #1b4d3e;
             --accent-color: #2e7d32;
             --dock-bg: rgba(255, 255, 255, 0.25);
+            --indicator-bg: rgba(0, 0, 0, 0.08);
             --border-color: rgba(0, 0, 0, 0.1);
         }
 
@@ -23,6 +24,7 @@
             --primary-color: #1b4d3e;
             --accent-color: #4cd964;
             --dock-bg: rgba(255, 255, 255, 0.1);
+            --indicator-bg: rgba(255, 255, 255, 0.15);
             --border-color: rgba(255, 255, 255, 0.15);
         }
 
@@ -126,6 +128,7 @@
             text-align: justify;
         }
 
+        /* شريط التنقل السفلي بزجاج الآيفون الشفاف وانتقال سلس */
         .iphone-dock {
             position: fixed;
             bottom: 15px;
@@ -139,15 +142,15 @@
             align-items: center;
             width: 85%;
             max-width: 350px;
-            padding: 8px 12px;
-            border-radius: 30px;
+            padding: 6px 10px;
+            border-radius: 35px;
             border: 1px solid rgba(255, 255, 255, 0.15);
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             z-index: 1000;
         }
 
         .dock-item {
-            background: none;
+            background: transparent;
             border: none;
             color: var(--text-color);
             font-size: 0.8rem;
@@ -155,16 +158,19 @@
             flex-direction: column;
             align-items: center;
             cursor: pointer;
-            transition: 0.2s;
+            padding: 6px 14px;
+            border-radius: 20px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             font-family: 'Amiri', serif;
-            opacity: 0.75;
+            opacity: 0.7;
         }
 
         .dock-item.active {
+            background-color: var(--indicator-bg);
             color: var(--accent-color);
             font-weight: bold;
             opacity: 1;
-            transform: scale(1.08);
+            transform: translateY(-2px);
         }
 
         .dock-icon {
@@ -456,4 +462,4 @@
     </script>
 </body>
 </html>
-        
+            

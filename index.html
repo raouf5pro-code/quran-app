@@ -256,7 +256,7 @@
             </div>
         </div>
 
-        <!-- 3. الأذكار -->
+        <!-- 3. الأذكار والدعاء -->
         <div id="azkarTab" class="tab-content">
             <div class="card">
                 <h3 style="color: var(--accent-color);" id="azkarTitle">أذكار المسلم</h3>
@@ -297,7 +297,7 @@
                 <h3 style="color: var(--accent-color);" id="infoTitle">معلومات التطبيق والإصدار</h3>
                 <div class="info-row">
                     <span id="lblVersion">إصدار التطبيق:</span>
-                    <span>v3.1.0 (Ultimate Pro)</span>
+                    <span>v3.0.0 (Ultimate Pro)</span>
                 </div>
                 <div class="info-row">
                     <span id="lblDev">المطور:</span>
@@ -403,14 +403,14 @@
 
         async function loadSurahText() {
             const surahNum = surahSelect.value || 1;
-            surahTitle.textContent = `سورة ${surahNames[surahNum - 1]}`;
-            quranText.innerHTML = "<div style='text-align:center; color: var(--accent-color); padding: 15px;'>✨ جاري تحميل آيات السورة الكريمة...</div>";
+            quranText.innerHTML = "<div style='text-align:center; color: var(--accent-color); padding: 20px;'>✨ جاري جلب آيات السورة الكريمة...</div>";
             
             try {
                 const response = await fetch(`https://api.alquran.cloud/v1/surah/${surahNum}`);
                 if (!response.ok) throw new Error("Network error");
                 const data = await response.json();
                 const surah = data.data;
+                surahTitle.textContent = `سورة ${surah.name}`;
                 
                 let textHtml = "";
                 if (surahNum != 1 && surahNum != 9) {
@@ -422,7 +422,7 @@
                 });
                 quranText.innerHTML = textHtml;
             } catch (err) {
-                quranText.innerHTML = "<div style='text-align:center; color: #b71c1c; padding: 15px;'>⚠️ تأكد من اتصال الإنترنت لعرض الآيات مباشرة.</div>";
+                quranText.innerHTML = "<div style='text-align:center; color: #b71c1c; padding: 20px;'>⚠️ تعذر الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت لديك لإحضار النص.</div>";
             }
         }
 
@@ -470,5 +470,5 @@
                 document.getElementById('lblSurah').textContent = "اختر السورة (60 حزب):";
                 document.getElementById('lblReciter').textContent = "اختر القارئ:";
                 document.getElementById('hadithMainTitle').textContent = "الأحاديث النبوية الشريفة";
-                document.getElementById('azkarTitle')
+                document.getEl
             

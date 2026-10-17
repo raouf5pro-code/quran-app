@@ -12,7 +12,7 @@
             --text-color: #1a1a1a;
             --primary-color: #1b4d3e;
             --accent-color: #2e7d32;
-            --dock-bg: rgba(255, 255, 255, 0.4);
+            --dock-bg: rgba(255, 255, 255, 0.15);
             --border-color: rgba(0, 0, 0, 0.1);
         }
 
@@ -22,7 +22,7 @@
             --text-color: #f2f2f7;
             --primary-color: #1b4d3e;
             --accent-color: #4cd964;
-            --dock-bg: rgba(28, 28, 30, 0.4);
+            --dock-bg: rgba(255, 255, 255, 0.08);
             --border-color: rgba(255, 255, 255, 0.15);
         }
 
@@ -35,35 +35,37 @@
             transition: background 0.3s, color 0.3s;
         }
 
-        /* الهيدر: الساعة الكبيرة الشفافة في الوسط */
+        /* الساعة الكبيرة الشفافة جداً في الوسط */
         header {
             background-color: var(--primary-color);
             color: white;
-            padding: 18px 15px;
+            padding: 22px 15px;
             text-align: center;
             position: relative;
-            border-bottom-left-radius: 25px;
-            border-bottom-right-radius: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: background-color 0.3s;
         }
 
         .header-center {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 5px;
+            gap: 8px;
         }
 
         .clock {
-            font-size: 1.4rem;
+            font-size: 2rem;
             font-weight: bold;
-            background: rgba(255, 255, 255, 0.18);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 4px 18px;
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 6px 24px;
+            border-radius: 25px;
             color: #ffffff;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .header-title h1 {
@@ -89,8 +91,8 @@
 
         .card {
             background: var(--card-bg);
-            border-radius: 16px;
-            padding: 18px;
+            border-radius: 18px;
+            padding: 20px;
             margin-bottom: 15px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.06);
             border: 1px solid var(--border-color);
@@ -111,29 +113,30 @@
 
         audio {
             width: 100%;
-            margin-top: 15px;
+            margin-top: 10px;
         }
 
+        /* نص القرآن الكريم كبير وواضح في الصفحة الرئيسية */
         .quran-text {
-            font-size: 1.5rem;
-            line-height: 2.3;
-            max-height: 400px;
+            font-size: 1.7rem;
+            line-height: 2.5;
+            max-height: 450px;
             overflow-y: auto;
-            padding: 12px;
+            padding: 15px;
             background: rgba(0,0,0,0.02);
-            border-radius: 12px;
+            border-radius: 14px;
             text-align: justify;
         }
 
-        /* شريط التنقل السفلي الصغير والشفاف مثل الآيفون */
+        /* شريط التنقل السفلي الشفاف تماماً (زجاجي) */
         .iphone-dock {
             position: fixed;
             bottom: 15px;
             left: 50%;
             transform: translateX(-50%);
             background: var(--dock-bg);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
             display: flex;
             justify-content: space-around;
             align-items: center;
@@ -141,8 +144,8 @@
             max-width: 350px;
             padding: 8px 12px;
             border-radius: 30px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             z-index: 1000;
         }
 
@@ -157,33 +160,33 @@
             cursor: pointer;
             transition: 0.2s;
             font-family: 'Amiri', serif;
-            opacity: 0.8;
+            opacity: 0.75;
         }
 
         .dock-item.active {
             color: var(--accent-color);
             font-weight: bold;
             opacity: 1;
-            transform: scale(1.05);
+            transform: scale(1.08);
         }
 
         .dock-icon {
             font-size: 1.2rem;
-            margin-bottom: 1px;
+            margin-bottom: 2px;
         }
 
         .hadith-box {
             line-height: 1.8;
-            font-size: 1.15rem;
+            font-size: 1.25rem;
             border-bottom: 1px solid var(--border-color);
-            padding-bottom: 12px;
-            margin-bottom: 12px;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
         }
 
         .info-row {
             display: flex;
             justify-content: space-between;
-            padding: 8px 0;
+            padding: 10px 0;
             border-bottom: 1px solid var(--border-color);
             font-size: 1rem;
         }
@@ -191,8 +194,8 @@
 </head>
 <body>
 
-    <!-- الهيدر العصري: الساعة الكبيرة الشفافة في الوسط -->
-    <header>
+    <!-- الهيدر: الساعة الكبيرة الشفافة جداً في الوسط -->
+    <header id="appHeader">
         <div class="header-center">
             <div class="clock" id="liveClock">00:00</div>
             <div class="header-title">
@@ -202,28 +205,31 @@
     </header>
 
     <div class="container">
-        <!-- 1. تبويب القرآن الكريم -->
+        <!-- 1. الصفحة الرئيسية: القرآن الكريم والتلاوة -->
         <div id="quranTab" class="tab-content active">
+            <!-- مربع مشغل الصوت والصور -->
             <div class="card">
-                <label>اختر القارئ:</label>
-                <select id="reciterSelect" onchange="loadAudio()"></select>
-
-                <label>اختر السورة (60 حزب):</label>
+                <h3 style="margin-top:0; color: var(--accent-color);" id="playerTitle">مشغل التلاوة</h3>
+                <label id="lblSurah">اختر السورة (60 حزب):</label>
                 <select id="surahSelect" onchange="loadSurahText(); loadAudio();"></select>
+
+                <label id="lblReciter" style="margin-top: 12px; display: block;">اختر القارئ:</label>
+                <select id="reciterSelect" onchange="loadAudio()"></select>
 
                 <audio id="audioPlayer" controls></audio>
             </div>
 
+            <!-- مربع نص السورة -->
             <div class="card">
                 <h3 id="surahTitle" style="color: var(--accent-color);">نص السورة</h3>
-                <div id="quranText" class="quran-text">جاري تحميل النص...</div>
+                <div id="quranText" class="quran-text">جاري تحميل النص الشريف...</div>
             </div>
         </div>
 
-        <!-- 2. تبويب الأحاديث الشريفة -->
+        <!-- 2. تبويب الأحاديث النبوية الشريفة -->
         <div id="hadithTab" class="tab-content">
             <div class="card">
-                <h3 style="color: var(--accent-color);">الأحاديث النبوية الشريفة</h3>
+                <h3 style="color: var(--accent-color);" id="hadithMainTitle">الأحاديث النبوية الشريفة</h3>
                 <div id="hadithContainer">
                     <div class="hadith-box">
                         <b>الحديث الأول:</b> عن أمير المؤمنين أبي حفص عمر بن الخطاب رضي الله عنه قال: سمعت رسول الله صلى الله عليه وسلم يقول: «إنما الأعمال بالنيات، وإنما لكل امرئ ما نوى...»
@@ -235,16 +241,27 @@
             </div>
         </div>
 
-        <!-- 3. تبويب الإعدادات المطور -->
+        <!-- 3. تبويب الإعدادات الطويل والمطور -->
         <div id="settingsTab" class="tab-content">
             <div class="card">
                 <h3 style="color: var(--accent-color);" id="settingsTitle">الإعدادات والتفضيلات</h3>
                 
-                <label>المظهر (الوضع الداكن / الفاتح):</label>
+                <label id="lblTheme">المظهر (الوضع الداكن / الفاتح):</label>
                 <button class="action-btn" onclick="toggleTheme()" id="btnThemeText">تبديل الوضع الداكن 🌙 / الفاتح ☀️</button>
 
                 <br><br>
-                <label>لغة التطبيق:</label>
+                <label id="lblColor">تخصيص لون التطبيق:</label>
+                <select id="colorSelect" onchange="changeAppColor()">
+                    <option value="#1b4d3e">أخضر إسلامي (Classic Green)</option>
+                    <option value="#b71c1c">أحمر ملكي (Royal Red)</option>
+                    <option value="#0d47a1">أزرق عميق (Deep Blue)</option>
+                    <option value="#f57f17">أصفر ذهبي (Gold Yellow)</option>
+                    <option value="#4a148c">أرجواني فاخر (Purple)</option>
+                    <option value="#212121">أسود داكن (Dark Obsidian)</option>
+                </select>
+
+                <br><br>
+                <label id="lblLang">لغة التطبيق:</label>
                 <select id="langSelect" onchange="changeLanguage()">
                     <option value="ar">العربية</option>
                     <option value="fr">Français</option>
@@ -252,24 +269,32 @@
             </div>
 
             <div class="card">
-                <h3 style="color: var(--accent-color);" id="infoTitle">معلومات التطبيق</h3>
+                <h3 style="color: var(--accent-color);" id="infoTitle">معلومات التطبيق والإصدار</h3>
                 <div class="info-row">
                     <span id="lblVersion">إصدار التطبيق:</span>
-                    <span>v1.0.0 (Pro)</span>
+                    <span>v2.5.0 (Ultimate Pro)</span>
                 </div>
                 <div class="info-row">
                     <span id="lblDev">المطور:</span>
                     <span style="font-family: sans-serif; font-weight: bold;">Raouf 5Pro</span>
                 </div>
                 <div class="info-row">
+                    <span id="lblEngine">محرك التشغيل:</span>
+                    <span>HTML5 / WebView Optimized</span>
+                </div>
+                <div class="info-row">
                     <span id="lblUpdate">حالة التحديثات:</span>
-                    <span style="color: #4cd964;">محدث لأحدث نسخة</span>
+                    <span style="color: #4cd964;">محدث لأحدث نسخة رسمية</span>
+                </div>
+                <div class="info-row">
+                    <span id="lblDatabase">قاعدة بيانات القرآن:</span>
+                    <span>Alquran.cloud & Mp3Quran API</span>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- شريط التنقل السفلي الصغير والشفاف مثل الآيفون -->
+    <!-- شريط التنقل السفلي الشفاف تماماً (مثل الآيفون) -->
     <nav class="iphone-dock">
         <button class="dock-item active" onclick="switchTab('quranTab', this)">
             <span class="dock-icon">📖</span>
@@ -286,7 +311,7 @@
     </nav>
 
     <script>
-        // ساعة حية بدون ثوان وفي الوسط
+        // ساعة كبيرة شفافة في الوسط (بدون ثوان)
         function updateClock() {
             const now = new Date();
             let hours = now.getHours();
@@ -307,116 +332,5 @@
             }
         }
 
-        // التنقل بين التبويبات عبر الشريط السفلي
-        function switchTab(tabId, btn) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.dock-item').forEach(el => el.classList.remove('active'));
-
-            document.getElementById(tabId).classList.add('active');
-            btn.classList.add('active');
-        }
-
-        // جلب القراء والسور
-        const reciterSelect = document.getElementById('reciterSelect');
-        const surahSelect = document.getElementById('surahSelect');
-        const audioPlayer = document.getElementById('audioPlayer');
-        const quranText = document.getElementById('quranText');
-        const surahTitle = document.getElementById('surahTitle');
-
-        async function fetchReciters() {
-            try {
-                const res = await fetch('https://mp3quran.net/api/v3/reciters?language=ar');
-                const data = await res.json();
-                reciterSelect.innerHTML = '';
-                data.reciters.forEach(reciter => {
-                    if (reciter.moshaf && reciter.moshaf.length > 0) {
-                        const option = document.createElement('option');
-                        option.value = reciter.moshaf[0].server;
-                        option.textContent = reciter.name;
-                        reciterSelect.appendChild(option);
-                    }
-                });
-                loadAudio();
-            } catch (err) {}
-        }
-
-        async function fetchSurahs() {
-            try {
-                const res = await fetch('https://api.alquran.cloud/v1/surah');
-                const data = await res.json();
-                surahSelect.innerHTML = '';
-                data.data.forEach(surah => {
-                    const option = document.createElement('option');
-                    option.value = surah.number;
-                    option.textContent = `${surah.number}. ${surah.name}`;
-                    surahSelect.appendChild(option);
-                });
-                loadSurahText();
-            } catch (err) {}
-        }
-
-        async function loadSurahText() {
-            const surahNum = surahSelect.value || 1;
-            try {
-                const res = await fetch(`https://api.alquran.cloud/v1/surah/${surahNum}`);
-                const data = await res.json();
-                const surah = data.data;
-                surahTitle.textContent = `سورة ${surah.name}`;
-                
-                let textHtml = "";
-                if (surahNum != 1 && surahNum != 9) {
-                    textHtml += "<p style='text-align:center;'>بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>";
-                }
-                
-                surah.ayahs.forEach(ayah => {
-                    textHtml += `${ayah.text} ﴿${ayah.numberInSurah}﴾ `;
-                });
-                quranText.innerHTML = textHtml;
-            } catch (err) {}
-        }
-
-        function loadAudio() {
-            const server = reciterSelect.value;
-            const surahNum = String(surahSelect.value || 1).padStart(3, '0');
-            if (server) {
-                audioPlayer.src = `${server}${surahNum}.mp3`;
-            }
-        }
-
-        // تغيير اللغة (عربي / فرنسي)
-        function changeLanguage() {
-            const lang = document.getElementById('langSelect').value;
-            const htmlTag = document.getElementById('htmlTag');
-
-            if (lang === 'fr') {
-                htmlTag.setAttribute('dir', 'ltr');
-                document.getElementById('appTitle').textContent = "Coran & Hadith Pro";
-                document.getElementById('navQuran').textContent = "Coran";
-                document.getElementById('navHadith').textContent = "Hadiths";
-                document.getElementById('navSettings').textContent = "Paramètres";
-                document.getElementById('settingsTitle').textContent = "Paramètres & Préférences";
-                document.getElementById('infoTitle').textContent = "Informations de l'application";
-                document.getElementById('lblVersion').textContent = "Version:";
-                document.getElementById('lblDev').textContent = "Développeur:";
-                document.getElementById('lblUpdate').textContent = "Mises à jour:";
-            } else {
-                htmlTag.setAttribute('dir', 'rtl');
-                document.getElementById('appTitle').textContent = "القرآن الكريم والأحاديث الشريفة";
-                document.getElementById('navQuran').textContent = "القرآن";
-                document.getElementById('navHadith').textContent = "الأحاديث";
-                document.getElementById('navSettings').textContent = "الإعدادات";
-                document.getElementById('settingsTitle').textContent = "الإعدادات والتفضيلات";
-                document.getElementById('infoTitle').textContent = "معلومات التطبيق";
-                document.getElementById('lblVersion').textContent = "إصدار التطبيق:";
-                document.getElementById('lblDev').textContent = "المطور:";
-                document.getElementById('lblUpdate').textContent = "حالة التحديثات:";
-            }
-        }
-
-        window.onload = () => {
-            fetchSurahs();
-            fetchReciters();
-        };
-    </script>
-</body>
-</html>
+        // تغيير لون التطبيق المخصص
+        

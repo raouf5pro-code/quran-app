@@ -237,7 +237,7 @@
 
             <div class="card">
                 <h3 id="surahTitle" style="color: var(--accent-color);">نص السورة</h3>
-                <div id="quranText" class="quran-text">اختر السورة لعرض النص الشريف...</div>
+                <div id="quranText" class="quran-text">جاري تحميل النص الشريف...</div>
             </div>
         </div>
 
@@ -389,6 +389,14 @@
             "المسد", "الإخلاص", "الفلق", "الناس"
         ];
 
+        // نصوص محلية مضمونة ومحتفظ بها في حالة عدم الاتصال
+        const localSurahs = {
+            1: "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ ﴿1﴾ الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ ﴿2﴾ الرَّحْمَنِ الرَّحِيمِ ﴿3﴾ مَالِكِ يَوْمِ الدِّينِ ﴿4﴾ إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ﴿5﴾ اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ ﴿6﴾ صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ ﴿7﴾",
+            112: "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ قُلْ هُوَ اللَّهُ أَحَدٌ ﴿1﴾ اللَّهُ الصَّمَدُ ﴿2﴾ لَمْ يَلِدْ وَلَمْ يُولَدْ ﴿3﴾ وَلَمْ يَكُنْ لَهُ كُفُوًا أَحَدٌ ﴿4﴾",
+            113: "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ ﴿1﴾ مِنْ شَرِّ مَا خَلَقَ ﴿2﴾ وَمِنْ شَرِّ غَاسِقٍ إِذَا وَقَبَ ﴿3﴾ وَمِنْ شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ ﴿4﴾ وَمِنْ شَرِّ حَاسِدٍ إِذَا حَسَدَ ﴿5﴾",
+            114: "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ قُلْ أَعُوذُ بِرَبِّ النَّاسِ ﴿1﴾ مَلِكِ النَّاسِ ﴿2﴾ إِلَهِ النَّاسِ ﴿3﴾ مِنْ شَرِّ الْوَسْوَاسِ الْخَنَّاسِ ﴿4﴾ الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ ﴿5﴾ مِنَ الْجِنَّةِ وَالنَّاسِ ﴿6﴾"
+        };
+
         function populateSurahs() {
             surahSelect.innerHTML = '';
             surahNames.forEach((name, index) => {
@@ -403,14 +411,21 @@
 
         async function loadSurahText() {
             const surahNum = surahSelect.value || 1;
-            quranText.innerHTML = "<div style='text-align:center; color: var(--accent-color); padding: 20px;'>✨ جاري جلب آيات السورة الكريمة...</div>";
+            surahTitle.textContent = `سورة ${surahNames[surahNum - 1]}`;
+
+            // إذا كانت السورة متوفرة محلياً يتم عرضها فوراً بدون انتظار الإنترنت
+            if (localSurahs[surahNum]) {
+                quranText.innerHTML = localSurahs[surahNum];
+                return;
+            }
+
+            quranText.innerHTML = "<div style='text-align:center; color: var(--accent-color); padding: 15px;'>✨ جاري تحميل آيات السورة الكريمة...</div>";
             
             try {
                 const response = await fetch(`https://api.alquran.cloud/v1/surah/${surahNum}`);
                 if (!response.ok) throw new Error("Network error");
                 const data = await response.json();
                 const surah = data.data;
-                surahTitle.textContent = `سورة ${surah.name}`;
                 
                 let textHtml = "";
                 if (surahNum != 1 && surahNum != 9) {
@@ -422,7 +437,7 @@
                 });
                 quranText.innerHTML = textHtml;
             } catch (err) {
-                quranText.innerHTML = "<div style='text-align:center; color: #b71c1c; padding: 20px;'>⚠️ تعذر الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت لديك لإحضار النص.</div>";
+                quranText.innerHTML = "<div style='text-align:center; color: var(--accent-color); padding: 15px; line-height: 1.8;'>عذراً، النص يعمل مباشرة عند الاتصال بشשת الإنترنت أو يمكنك الاستماع للتلاوة مباشرة عبر مشغل الصوت بالأعلى.</div>";
             }
         }
 
@@ -452,23 +467,5 @@
                 document.getElementById('azkarTitle').textContent = "Azkar Muslim";
                 document.getElementById('settingsTitle').textContent = "Paramètres & Préférences";
                 document.getElementById('lblTheme').textContent = "Thème (Sombre / Clair):";
-                document.getElementById('lblColor').textContent = "Personnaliser la couleur:";
-                document.getElementById('lblLang').textContent = "Langue de l'application:";
-                document.getElementById('infoTitle').textContent = "Informations de l'application";
-                document.getElementById('lblVersion').textContent = "Version:";
-                document.getElementById('lblDev').textContent = "Développeur:";
-                document.getElementById('lblEngine').textContent = "Moteur:";
-                document.getElementById('lblUpdate').textContent = "Mises à jour:";
-            } else {
-                htmlTag.setAttribute('dir', 'rtl');
-                document.getElementById('appTitle').textContent = "القرآن الكريم والأحاديث الشريفة";
-                document.getElementById('navQuran').textContent = "القرآن";
-                document.getElementById('navHadith').textContent = "الأحاديث";
-                document.getElementById('navAzkar').textContent = "الأذكار";
-                document.getElementById('navSettings').textContent = "الإعدادات";
-                document.getElementById('playerTitle').textContent = "مشغل التلاوة";
-                document.getElementById('lblSurah').textContent = "اختر السورة (60 حزب):";
-                document.getElementById('lblReciter').textContent = "اختر القارئ:";
-                document.getElementById('hadithMainTitle').textContent = "الأحاديث النبوية الشريفة";
-                document.getEl
+                document.getElementById('lblColor').textContent = "Personnaliser la couleur:"
             

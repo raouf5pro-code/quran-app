@@ -209,14 +209,21 @@
                 <select id="surahSelect" onchange="loadSurahText(); loadAudio();"></select>
 
                 <label id="lblReciter" style="margin-top: 12px; display: block;">اختر القارئ:</label>
-                <select id="reciterSelect" onchange="loadAudio()"></select>
+                <select id="reciterSelect" onchange="loadAudio()">
+                    <option value="https://sv1.islamweb.net/media/Audio/quran/sds/1/">عبد الرحمن السديس</option>
+                    <option value="https://server11.mp3quran.net/shur/">سعود الشريم</option>
+                    <option value="https://server12.mp3quran.net/maher/">ماهر المعيقلي</option>
+                    <option value="https://server8.mp3quran.net/afs/">مشاري العفاسي</option>
+                    <option value="https://server7.mp3quran.net/abdulsamad/">عبد الباسط عبد الصمد</option>
+                    <option value="https://server6.mp3quran.net/husr/">محمود خليل الحصري</option>
+                </select>
 
                 <audio id="audioPlayer" controls></audio>
             </div>
 
             <div class="card">
                 <h3 id="surahTitle" style="color: var(--accent-color);">نص السورة</h3>
-                <div id="quranText" class="quran-text">اختر السورة لعرض النص الشريف...</div>
+                <div id="quranText" class="quran-text">جاري تحميل النص الشريف...</div>
             </div>
         </div>
 
@@ -334,13 +341,12 @@
             btn.classList.add('active');
         }
 
-        const reciterSelect = document.getElementById('reciterSelect');
         const surahSelect = document.getElementById('surahSelect');
+        const reciterSelect = document.getElementById('reciterSelect');
         const audioPlayer = document.getElementById('audioPlayer');
         const quranText = document.getElementById('quranText');
         const surahTitle = document.getElementById('surahTitle');
 
-        // قائمة السور الشاملة والمضمونة (114 سورة)
         const surahNames = [
             "الفاتحة", "البقرة", "آل عمران", "النساء", "المائدة", "الأنعام", "الأعراف", "الأنفال", "التوبة", "يونس",
             "هود", "يوسف", "الرعد", "إبراهيم", "الحجر", "النحل", "الإسراء", "الكهف", "مريم", "طه",
@@ -352,7 +358,7 @@
             "نوح", "الجن", "المزمل", "المدثر", "القيامة", "الإنسان", "المرسلات", "النبأ", "النازعات", "عبس",
             "التكوير", "الانفطار", "المطففين", "الانشقاق", "البروج", "الطارق", "الأعلى", "الغاشية", "الفجر", "البلد",
             "الشمس", "الليل", "الضحى", "الشرح", "التين", "العلق", "القدر", "البينة", "الزلزلة", "العاديات",
-            "القارعة", "التكاثر", "العصر", "الهمزة", "الفيلم", "قريش", "المعون", "الكوثر", "الكافرون", "النصر",
+            "القارعة", "التكاثر", "العصر", "الهمزة", "الفيل", "قريش", "الماعون", "الكوثر", "الكافرون", "النصر",
             "المسد", "الإخلاص", "الفلق", "الناس"
         ];
 
@@ -365,23 +371,7 @@
                 surahSelect.appendChild(option);
             });
             loadSurahText();
-        }
-
-        async function fetchReciters() {
-            try {
-                const res = await fetch('https://mp3quran.net/api/v3/reciters?language=ar');
-                const data = await res.json();
-                reciterSelect.innerHTML = '';
-                data.reciters.forEach(reciter => {
-                    if (reciter.moshaf && reciter.moshaf.length > 0) {
-                        const option = document.createElement('option');
-                        option.value = reciter.moshaf[0].server;
-                        option.textContent = reciter.name;
-                        reciterSelect.appendChild(option);
-                    }
-                });
-                loadAudio();
-            } catch (err) {}
+            loadAudio();
         }
 
         async function loadSurahText() {
@@ -403,7 +393,7 @@
                 });
                 quranText.innerHTML = textHtml;
             } catch (err) {
-                quranText.innerHTML = "تأكد من الاتصال بالإنترنت لعرض النص كاملًا.";
+                quranText.innerHTML = "تعذر تحميل النص، تأكد من الاتصال بالإنترنت.";
             }
         }
 
@@ -462,7 +452,6 @@
 
         window.onload = () => {
             populateSurahs();
-            fetchReciters();
         };
     </script>
 </body>

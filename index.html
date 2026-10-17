@@ -3,27 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تطبيق القرآن الكريم والأحاديث</title>
+    <title>تطبيق القرآن الكريم والأحاديث الشريفة</title>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #f8f9fa;
+            --bg-color: #f4f6f9;
             --card-bg: #ffffff;
             --text-color: #1a1a1a;
             --primary-color: #1b4d3e;
             --accent-color: #2e7d32;
-            --dock-bg: rgba(255, 255, 255, 0.75);
-            --border-color: #e5e5e7;
+            --dock-bg: rgba(255, 255, 255, 0.4);
+            --border-color: rgba(0, 0, 0, 0.1);
         }
 
         [data-theme="dark"] {
             --bg-color: #000000;
             --card-bg: #1c1c1e;
             --text-color: #f2f2f7;
-            --primary-color: #2e7d32;
+            --primary-color: #1b4d3e;
             --accent-color: #4cd964;
-            --dock-bg: rgba(28, 28, 30, 0.75);
-            --border-color: #38383a;
+            --dock-bg: rgba(28, 28, 30, 0.4);
+            --border-color: rgba(255, 255, 255, 0.15);
         }
 
         body {
@@ -31,40 +31,50 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
-            padding-bottom: 100px;
+            padding-bottom: 90px;
             transition: background 0.3s, color 0.3s;
         }
 
-        /* شريط العلوى والساعة (مطابق للطلب) */
+        /* الهيدر: الساعة الكبيرة الشفافة في الوسط */
         header {
             background-color: var(--primary-color);
             color: white;
-            padding: 15px 20px;
+            padding: 18px 15px;
+            text-align: center;
+            position: relative;
+            border-bottom-left-radius: 25px;
+            border-bottom-right-radius: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        .header-center {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
-            border-bottom-left-radius: 20px;
-            border-bottom-right-radius: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            gap: 5px;
+        }
+
+        .clock {
+            font-size: 1.4rem;
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 4px 18px;
+            border-radius: 20px;
+            color: #ffffff;
+            letter-spacing: 1px;
         }
 
         .header-title h1 {
             margin: 0;
-            font-size: 1.3rem;
-            color: #ffffff;
-        }
-
-        .clock {
-            font-size: 0.95rem;
-            font-weight: bold;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 5px 12px;
-            border-radius: 20px;
-            color: #ffffff;
+            font-size: 1.1rem;
+            color: #e0f2f1;
+            font-weight: normal;
         }
 
         .container {
-            padding: 20px;
+            padding: 15px;
             max-width: 800px;
             margin: 0 auto;
         }
@@ -80,16 +90,16 @@
         .card {
             background: var(--card-bg);
             border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            padding: 18px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
             border: 1px solid var(--border-color);
         }
 
         select, button.action-btn {
             width: 100%;
             padding: 12px;
-            margin-top: 10px;
+            margin-top: 8px;
             font-size: 1.1rem;
             font-family: 'Amiri', serif;
             border-radius: 12px;
@@ -109,30 +119,30 @@
             line-height: 2.3;
             max-height: 400px;
             overflow-y: auto;
-            padding: 15px;
+            padding: 12px;
             background: rgba(0,0,0,0.02);
             border-radius: 12px;
             text-align: justify;
         }
 
-        /* شريط التنقل السفلي الدائري الشفاف (مثل الآيفون - Dock) */
+        /* شريط التنقل السفلي الصغير والشفاف مثل الآيفون */
         .iphone-dock {
             position: fixed;
-            bottom: 20px;
+            bottom: 15px;
             left: 50%;
             transform: translateX(-50%);
             background: var(--dock-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
             display: flex;
             justify-content: space-around;
             align-items: center;
-            width: 90%;
-            max-width: 400px;
-            padding: 10px 15px;
-            border-radius: 35px;
+            width: 85%;
+            max-width: 350px;
+            padding: 8px 12px;
+            border-radius: 30px;
             border: 1px solid var(--border-color);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
             z-index: 1000;
         }
 
@@ -140,47 +150,59 @@
             background: none;
             border: none;
             color: var(--text-color);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             display: flex;
             flex-direction: column;
             align-items: center;
             cursor: pointer;
             transition: 0.2s;
             font-family: 'Amiri', serif;
+            opacity: 0.8;
         }
 
         .dock-item.active {
             color: var(--accent-color);
             font-weight: bold;
+            opacity: 1;
             transform: scale(1.05);
         }
 
         .dock-icon {
-            font-size: 1.4rem;
-            margin-bottom: 2px;
+            font-size: 1.2rem;
+            margin-bottom: 1px;
         }
 
         .hadith-box {
             line-height: 1.8;
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 12px;
             margin-bottom: 12px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 1rem;
         }
     </style>
 </head>
 <body>
 
-    <!-- الأعلى: العنوان والساعة الحية باللون الأخضر والأبيض -->
+    <!-- الهيدر العصري: الساعة الكبيرة الشفافة في الوسط -->
     <header>
-        <div class="header-title">
-            <h1 id="appTitle">القرآن والأحاديث الشريفة</h1>
+        <div class="header-center">
+            <div class="clock" id="liveClock">00:00</div>
+            <div class="header-title">
+                <h1 id="appTitle">القرآن الكريم والأحاديث الشريفة</h1>
+            </div>
         </div>
-        <div class="clock" id="liveClock">00:00:00</div>
     </header>
 
     <div class="container">
-        <!-- 1. تبويب القرآن الكريم والتلاوة -->
+        <!-- 1. تبويب القرآن الكريم -->
         <div id="quranTab" class="tab-content active">
             <div class="card">
                 <label>اختر القارئ:</label>
@@ -213,13 +235,13 @@
             </div>
         </div>
 
-        <!-- 3. تبويب الإعدادات والوضع الداكن/الفاتح -->
+        <!-- 3. تبويب الإعدادات المطور -->
         <div id="settingsTab" class="tab-content">
             <div class="card">
-                <h3 style="color: var(--accent-color);">الإعدادات</h3>
+                <h3 style="color: var(--accent-color);" id="settingsTitle">الإعدادات والتفضيلات</h3>
                 
-                <label>المظهر (داكن / فاتح):</label>
-                <button class="action-btn" onclick="toggleTheme()" id="btnThemeText">الوضع الداكن 🌙 / الفاتح ☀️</button>
+                <label>المظهر (الوضع الداكن / الفاتح):</label>
+                <button class="action-btn" onclick="toggleTheme()" id="btnThemeText">تبديل الوضع الداكن 🌙 / الفاتح ☀️</button>
 
                 <br><br>
                 <label>لغة التطبيق:</label>
@@ -228,10 +250,26 @@
                     <option value="fr">Français</option>
                 </select>
             </div>
+
+            <div class="card">
+                <h3 style="color: var(--accent-color);" id="infoTitle">معلومات التطبيق</h3>
+                <div class="info-row">
+                    <span id="lblVersion">إصدار التطبيق:</span>
+                    <span>v1.0.0 (Pro)</span>
+                </div>
+                <div class="info-row">
+                    <span id="lblDev">المطور:</span>
+                    <span style="font-family: sans-serif; font-weight: bold;">Raouf 5Pro</span>
+                </div>
+                <div class="info-row">
+                    <span id="lblUpdate">حالة التحديثات:</span>
+                    <span style="color: #4cd964;">محدث لأحدث نسخة</span>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- شريط التنقل السفلي الشفاف الدائري (مثل الآيفون) -->
+    <!-- شريط التنقل السفلي الصغير والشفاف مثل الآيفون -->
     <nav class="iphone-dock">
         <button class="dock-item active" onclick="switchTab('quranTab', this)">
             <span class="dock-icon">📖</span>
@@ -248,10 +286,13 @@
     </nav>
 
     <script>
-        // الساعة الحية في الأعلى
+        // ساعة حية بدون ثوان وفي الوسط
         function updateClock() {
             const now = new Date();
-            document.getElementById('liveClock').textContent = now.toLocaleTimeString();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            document.getElementById('liveClock').textContent = `${hours}:${minutes}`;
         }
         setInterval(updateClock, 1000);
         updateClock();
@@ -266,7 +307,7 @@
             }
         }
 
-        // التنقل بين التبويبات عبر الشريط السفلي الدائري
+        // التنقل بين التبويبات عبر الشريط السفلي
         function switchTab(tabId, btn) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.dock-item').forEach(el => el.classList.remove('active'));
@@ -275,7 +316,7 @@
             btn.classList.add('active');
         }
 
-        // جلب البيانات (القرآن والقراء)
+        // جلب القراء والسور
         const reciterSelect = document.getElementById('reciterSelect');
         const surahSelect = document.getElementById('surahSelect');
         const audioPlayer = document.getElementById('audioPlayer');
@@ -349,16 +390,26 @@
 
             if (lang === 'fr') {
                 htmlTag.setAttribute('dir', 'ltr');
-                document.getElementById('appTitle').textContent = "Coran & Hadith";
+                document.getElementById('appTitle').textContent = "Coran & Hadith Pro";
                 document.getElementById('navQuran').textContent = "Coran";
                 document.getElementById('navHadith').textContent = "Hadiths";
                 document.getElementById('navSettings').textContent = "Paramètres";
+                document.getElementById('settingsTitle').textContent = "Paramètres & Préférences";
+                document.getElementById('infoTitle').textContent = "Informations de l'application";
+                document.getElementById('lblVersion').textContent = "Version:";
+                document.getElementById('lblDev').textContent = "Développeur:";
+                document.getElementById('lblUpdate').textContent = "Mises à jour:";
             } else {
                 htmlTag.setAttribute('dir', 'rtl');
-                document.getElementById('appTitle').textContent = "القرآن والأحاديث الشريفة";
+                document.getElementById('appTitle').textContent = "القرآن الكريم والأحاديث الشريفة";
                 document.getElementById('navQuran').textContent = "القرآن";
                 document.getElementById('navHadith').textContent = "الأحاديث";
                 document.getElementById('navSettings').textContent = "الإعدادات";
+                document.getElementById('settingsTitle').textContent = "الإعدادات والتفضيلات";
+                document.getElementById('infoTitle').textContent = "معلومات التطبيق";
+                document.getElementById('lblVersion').textContent = "إصدار التطبيق:";
+                document.getElementById('lblDev').textContent = "المطور:";
+                document.getElementById('lblUpdate').textContent = "حالة التحديثات:";
             }
         }
 

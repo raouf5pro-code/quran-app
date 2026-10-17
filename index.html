@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl" id="htmlTag">
 <head>
@@ -13,7 +14,6 @@
             --primary-color: #1b4d3e;
             --accent-color: #2e7d32;
             --dock-bg: rgba(255, 255, 255, 0.25);
-            --indicator-bg: rgba(0, 0, 0, 0.08);
             --border-color: rgba(0, 0, 0, 0.1);
         }
 
@@ -24,8 +24,13 @@
             --primary-color: #1b4d3e;
             --accent-color: #4cd964;
             --dock-bg: rgba(255, 255, 255, 0.1);
-            --indicator-bg: rgba(255, 255, 255, 0.15);
             --border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        /* منع التحديد الأزرق المزعج في الهاتف نهائياً */
+        * {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
         }
 
         body {
@@ -37,15 +42,15 @@
             transition: background 0.3s, color 0.3s;
         }
 
+        /* الهيدر: يملأ الجزء العلوي بتصميم فخم ومتناسق */
         header {
             background-color: var(--primary-color);
             color: white;
-            padding: 22px 15px;
+            padding: 30px 15px 40px 15px;
             text-align: center;
-            position: relative;
-            border-bottom-left-radius: 30px;
-            border-bottom-right-radius: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border-bottom-left-radius: 35px;
+            border-bottom-right-radius: 35px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
             transition: background-color 0.3s;
         }
 
@@ -53,25 +58,25 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
 
         .clock {
-            font-size: 2rem;
+            font-size: 2.3rem;
             font-weight: bold;
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            padding: 6px 24px;
-            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 8px 28px;
+            border-radius: 30px;
             color: #ffffff;
             letter-spacing: 2px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.25);
         }
 
         .header-title h1 {
             margin: 0;
-            font-size: 1.1rem;
+            font-size: 1.25rem;
             color: #e0f2f1;
             font-weight: normal;
         }
@@ -79,7 +84,9 @@
         .container {
             padding: 15px;
             max-width: 800px;
-            margin: 0 auto;
+            margin: -20px auto 0 auto;
+            position: relative;
+            z-index: 10;
         }
 
         .tab-content {
@@ -128,7 +135,7 @@
             text-align: justify;
         }
 
-        /* شريط التنقل السفلي بزجاج الآيفون الشفاف وانتقال سلس */
+        /* شريط التنقل السفلي الزجاجي الشفاف مثل الآيفون (4 تبويبات) */
         .iphone-dock {
             position: fixed;
             bottom: 15px;
@@ -140,11 +147,11 @@
             display: flex;
             justify-content: space-around;
             align-items: center;
-            width: 85%;
-            max-width: 350px;
-            padding: 6px 10px;
+            width: 90%;
+            max-width: 400px;
+            padding: 8px 10px;
             border-radius: 35px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             z-index: 1000;
         }
@@ -153,24 +160,29 @@
             background: transparent;
             border: none;
             color: var(--text-color);
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             display: flex;
             flex-direction: column;
             align-items: center;
             cursor: pointer;
-            padding: 6px 14px;
+            padding: 6px 10px;
             border-radius: 20px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease;
             font-family: 'Amiri', serif;
-            opacity: 0.7;
+            opacity: 0.75;
+            outline: none;
         }
 
         .dock-item.active {
-            background-color: var(--indicator-bg);
+            background-color: rgba(0, 0, 0, 0.08);
             color: var(--accent-color);
             font-weight: bold;
             opacity: 1;
             transform: translateY(-2px);
+        }
+
+        [data-theme="dark"] .dock-item.active {
+            background-color: rgba(255, 255, 255, 0.15);
         }
 
         .dock-icon {
@@ -207,7 +219,7 @@
     </header>
 
     <div class="container">
-        <!-- 1. القرآن الكريم -->
+        <!-- 1. القرآن الكريم (في الأعلى) -->
         <div id="quranTab" class="tab-content active">
             <div class="card">
                 <h3 style="margin-top:0; color: var(--accent-color);" id="playerTitle">مشغل التلاوة</h3>
@@ -248,7 +260,17 @@
             </div>
         </div>
 
-        <!-- 3. الإعدادات -->
+        <!-- 3. الأذكار والدعاء (الخانة الجديدة المضافة) -->
+        <div id="azkarTab" class="tab-content">
+            <div class="card">
+                <h3 style="color: var(--accent-color);" id="azkarTitle">أذكار المسلم</h3>
+                <p>«سُبْحَانَ اللَّهِ وَبِحَمْدِهِ، عَدَدَ خَلْقِهِ، وَرِضَا نَفْسِهِ، وَزِنَةَ عَرْشِهِ، وَمِدَادَ كَلِمَاتِهِ»</p>
+                <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 15px 0;">
+                <p>«اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي»</p>
+            </div>
+        </div>
+
+        <!-- 4. الإعدادات -->
         <div id="settingsTab" class="tab-content">
             <div class="card">
                 <h3 style="color: var(--accent-color);" id="settingsTitle">الإعدادات والتفضيلات</h3>
@@ -279,7 +301,7 @@
                 <h3 style="color: var(--accent-color);" id="infoTitle">معلومات التطبيق والإصدار</h3>
                 <div class="info-row">
                     <span id="lblVersion">إصدار التطبيق:</span>
-                    <span>v2.5.0 (Ultimate Pro)</span>
+                    <span>v3.0.0 (Ultimate Pro)</span>
                 </div>
                 <div class="info-row">
                     <span id="lblDev">المطور:</span>
@@ -297,7 +319,7 @@
         </div>
     </div>
 
-    <!-- شريط التنقل السفلي -->
+    <!-- شريط التنقل السفلي (4 تبويبات) -->
     <nav class="iphone-dock">
         <button class="dock-item active" onclick="switchTab('quranTab', this)">
             <span class="dock-icon">📖</span>
@@ -306,6 +328,10 @@
         <button class="dock-item" onclick="switchTab('hadithTab', this)">
             <span class="dock-icon">📜</span>
             <span id="navHadith">الأحاديث</span>
+        </button>
+        <button class="dock-item" onclick="switchTab('azkarTab', this)">
+            <span class="dock-icon">📿</span>
+            <span id="navAzkar">الأذكار</span>
         </button>
         <button class="dock-item" onclick="switchTab('settingsTab', this)">
             <span class="dock-icon">⚙️</span>
@@ -420,11 +446,13 @@
                 document.getElementById('appTitle').textContent = "Coran & Hadith Ultimate Pro";
                 document.getElementById('navQuran').textContent = "Coran";
                 document.getElementById('navHadith').textContent = "Hadiths";
+                document.getElementById('navAzkar').textContent = "Azkar";
                 document.getElementById('navSettings').textContent = "Paramètres";
                 document.getElementById('playerTitle').textContent = "Lecteur Audio";
                 document.getElementById('lblSurah').textContent = "Choisir la Sourate:";
                 document.getElementById('lblReciter').textContent = "Choisir le Récitateur:";
                 document.getElementById('hadithMainTitle').textContent = "Hadiths Prophétiques";
+                document.getElementById('azkarTitle').textContent = "Azkar Muslim";
                 document.getElementById('settingsTitle').textContent = "Paramètres & Préférences";
                 document.getElementById('lblTheme').textContent = "Thème (Sombre / Clair):";
                 document.getElementById('lblColor').textContent = "Personnaliser la couleur:";
@@ -439,27 +467,12 @@
                 document.getElementById('appTitle').textContent = "القرآن الكريم والأحاديث الشريفة";
                 document.getElementById('navQuran').textContent = "القرآن";
                 document.getElementById('navHadith').textContent = "الأحاديث";
+                document.getElementById('navAzkar').textContent = "الأذكار";
                 document.getElementById('navSettings').textContent = "الإعدادات";
                 document.getElementById('playerTitle').textContent = "مشغل التلاوة";
                 document.getElementById('lblSurah').textContent = "اختر السورة (60 حزب):";
                 document.getElementById('lblReciter').textContent = "اختر القارئ:";
                 document.getElementById('hadithMainTitle').textContent = "الأحاديث النبوية الشريفة";
-                document.getElementById('settingsTitle').textContent = "الإعدادات والتفضيلات";
-                document.getElementById('lblTheme').textContent = "المظهر (الوضع الداكن / الفاتح):";
-                document.getElementById('lblColor').textContent = "تخصيص لون التطبيق:";
-                document.getElementById('lblLang').textContent = "لغة التطبيق:";
-                document.getElementById('infoTitle').textContent = "معلومات التطبيق والإصدار";
-                document.getElementById('lblVersion').textContent = "إصدار التطبيق:";
-                document.getElementById('lblDev').textContent = "المطور:";
-                document.getElementById('lblEngine').textContent = "محرك التشغيل:";
-                document.getElementById('lblUpdate').textContent = "حالة التحديثات:";
-            }
-        }
-
-        window.onload = () => {
-            populateSurahs();
-        };
-    </script>
-</body>
-</html>
+                document.getElementById('azkarTitle').textContent = "أذكار المسلم";
+                document.getElementById('settingsTitle').textContent = "ا
             

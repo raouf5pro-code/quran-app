@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl" id="htmlTag">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>تطبيق القرآن الكريم والأحاديث الشريفة</title>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -12,24 +12,25 @@
             --text-color: #1a1a1a;
             --primary-color: #1b4d3e;
             --accent-color: #2e7d32;
-            --dock-bg: rgba(255, 255, 255, 0.25);
-            --border-color: rgba(0, 0, 0, 0.1);
+            --dock-bg: rgba(255, 255, 255, 0.4);
+            --border-color: rgba(0, 0, 0, 0.08);
         }
 
         [data-theme="dark"] {
-            --bg-color: #0d0d0e;
-            --card-bg: #1c1c1e;
+            --bg-color: #0b0d0c;
+            --card-bg: #161817;
             --text-color: #f2f2f7;
-            --primary-color: #123329;
+            --primary-color: #0f3328;
             --accent-color: #4cd964;
-            --dock-bg: rgba(255, 255, 255, 0.1);
-            --border-color: rgba(255, 255, 255, 0.15);
+            --dock-bg: rgba(30, 30, 30, 0.5);
+            --border-color: rgba(255, 255, 255, 0.12);
         }
 
         * {
             -webkit-tap-highlight-color: transparent;
             -webkit-touch-callout: none;
             box-sizing: border-box;
+            outline: none;
         }
 
         body {
@@ -39,42 +40,44 @@
             margin: 0;
             padding-bottom: 95px;
             transition: background 0.3s, color 0.3s;
-            background-image: radial-gradient(rgba(27, 77, 62, 0.08) 1px, transparent 1px), radial-gradient(rgba(27, 77, 62, 0.08) 1px, var(--bg-color) 1px);
-            background-size: 20px 20px;
-            background-position: 0 0, 10px 10px;
+            background-image: radial-gradient(rgba(27, 77, 62, 0.06) 1px, transparent 1px), radial-gradient(rgba(27, 77, 62, 0.06) 1px, var(--bg-color) 1px);
+            background-size: 24px 24px;
+            background-position: 0 0, 12px 12px;
         }
 
         header {
             background-color: var(--primary-color);
             color: white;
-            padding: 25px 15px 35px 15px;
+            padding: 30px 15px 40px 15px;
             text-align: center;
-            border-bottom-left-radius: 30px;
-            border-bottom-right-radius: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border-bottom-left-radius: 32px;
+            border-bottom-right-radius: 32px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
             position: relative;
             overflow: hidden;
+            transition: background-color 0.3s;
         }
 
         header::before {
             content: "﴿ ۞ ﴾";
             position: absolute;
-            top: -10px;
+            top: -15px;
             right: 15px;
-            font-size: 5rem;
-            opacity: 0.08;
+            font-size: 5.5rem;
+            opacity: 0.07;
             color: white;
+            pointer-events: none;
         }
 
         .header-center {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
 
         .clock {
-            font-size: 2.8rem;
+            font-size: 2.7rem;
             font-weight: bold;
             color: #ffffff;
             letter-spacing: 2px;
@@ -82,46 +85,47 @@
         }
 
         .clock-style-1 {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.18);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            padding: 4px 30px;
+            padding: 4px 32px;
             border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .clock-style-2 {
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.35);
             border: 2px dashed #e0f2f1;
-            padding: 2px 25px;
-            border-radius: 12px;
+            padding: 2px 28px;
+            border-radius: 14px;
         }
 
         .clock-style-3 {
             background: linear-gradient(135deg, rgba(255,255,255,0.3), rgba(255,255,255,0.05));
             border-radius: 50px;
-            padding: 6px 40px;
+            padding: 6px 42px;
             border: 1px solid rgba(255,255,255,0.4);
+            text-shadow: 0 2px 6px rgba(0,0,0,0.3);
         }
 
         .clock-style-4 {
             border-top: 2px solid #e0f2f1;
             border-bottom: 2px solid #e0f2f1;
-            padding: 0 20px;
+            padding: 2px 24px;
             letter-spacing: 4px;
         }
 
         .clock-style-5 {
             background: #ffffff;
             color: var(--primary-color);
-            padding: 2px 28px;
+            padding: 2px 30px;
             border-radius: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
         }
 
         .header-title h1 {
-            margin: 5px 0 0 0;
-            font-size: 1.1rem;
+            margin: 4px 0 0 0;
+            font-size: 1.15rem;
             color: #e0f2f1;
             font-weight: normal;
         }
@@ -129,7 +133,7 @@
         .container {
             padding: 15px;
             max-width: 800px;
-            margin: -20px auto 0 auto;
+            margin: -22px auto 0 auto;
             position: relative;
             z-index: 10;
         }
@@ -144,24 +148,25 @@
 
         .card {
             background: var(--card-bg);
-            border-radius: 18px;
+            border-radius: 20px;
             padding: 20px;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            margin-bottom: 16px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.05);
             border: 1px solid var(--border-color);
         }
 
         select, button.action-btn {
             width: 100%;
-            padding: 12px;
+            padding: 13px;
             margin-top: 8px;
             font-size: 1.1rem;
             font-family: 'Amiri', serif;
-            border-radius: 12px;
+            border-radius: 14px;
             border: 1px solid var(--border-color);
             background: var(--card-bg);
             color: var(--text-color);
             outline: none;
+            cursor: pointer;
         }
 
         audio {
@@ -170,9 +175,9 @@
         }
 
         .quran-text {
-            font-size: 1.7rem;
-            line-height: 2.5;
-            max-height: 450px;
+            font-size: 1.65rem;
+            line-height: 2.4;
+            max-height: 420px;
             overflow-y: auto;
             padding: 15px;
             background: rgba(0,0,0,0.02);
@@ -186,17 +191,17 @@
             left: 50%;
             transform: translateX(-50%);
             background: var(--dock-bg);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
             display: flex;
             justify-content: space-around;
             align-items: center;
             width: 90%;
-            max-width: 400px;
+            max-width: 420px;
             padding: 8px 10px;
-            border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-radius: 35px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
             z-index: 1000;
         }
 
@@ -204,7 +209,7 @@
             background: transparent;
             border: none;
             color: var(--text-color);
-            font-size: 0.75rem;
+            font-size: 0.78rem;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -213,18 +218,18 @@
             border-radius: 20px;
             font-family: 'Amiri', serif;
             opacity: 0.75;
-            outline: none;
+            transition: transform 0.2s, opacity 0.2s;
         }
 
         .dock-item.active {
             color: var(--accent-color);
             font-weight: bold;
             opacity: 1;
-            transform: scale(1.05);
+            transform: scale(1.06);
         }
 
         .dock-icon {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             margin-bottom: 2px;
         }
 
@@ -236,12 +241,22 @@
             margin-bottom: 12px;
         }
 
+        .item-box:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
         .info-row {
             display: flex;
             justify-content: space-between;
             padding: 10px 0;
             border-bottom: 1px solid var(--border-color);
             font-size: 1rem;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
         }
     </style>
 </head>
@@ -260,13 +275,14 @@
         <!-- 1. القرآن الكريم -->
         <div id="quranTab" class="tab-content active">
             <div class="card">
-                <label>اختر السورة:</label>
+                <label>اختر السورة (114 سورة كاملة):</label>
                 <select id="surahSelect" onchange="loadSurahText(); loadAudio();"></select>
                 <h3 id="surahTitle" style="color: var(--accent-color); margin-top: 15px;">نص السورة</h3>
-                <div id="quranText" class="quran-text">جاري عرض النص الشريف...</div>
+                <div id="quranText" class="quran-text">جاري إعداد النص الشريف...</div>
             </div>
 
-            <div class="card" style="background: rgba(255,255,255,0.85); backdrop-filter: blur(10px);">
+            <div class="card" style="background: rgba(255,255,255,0.85); backdrop-filter: blur
+(10px);">
                 <h3 style="margin-top:0; color: var(--accent-color);">مشغل التلاوة</h3>
                 <label>اختر القارئ:</label>
                 <select id="reciterSelect" onchange="loadAudio()">
@@ -417,7 +433,6 @@
             surahSelect.appendChild(opt);
         });
 
-        // تخزين النصوص محلياً لمنع البلوك والتعليق نهائياً
         function loadSurahText() {
             const num = surahSelect.value || 1;
             const name = surahNames[num - 1];
@@ -426,7 +441,7 @@
             if (num == 1) {
                 document.getElementById('quranText').innerHTML = "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ ﴿1﴾ الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ ﴿2﴾ الرَّحْمَنِ الرَّحِيمِ ﴿3﴾ مَالِكِ يَوْمِ الدِّينِ ﴿4﴾ إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ﴿5﴾ اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ ﴿6﴾ صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ ﴿7﴾";
             } else if (num == 112) {
-                document.getElementById('quranText').innerHTML = "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ ﴿1﴾ قُلْ هُوَ اللَّهُ أَحَدٌ ﴿2﴾ اللَّهُ الصَّصَمَدُ ﴿3﴾ لَمْ يَلِدْ وَلَمْ يُولَدْ ﴿4﴾ وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ ﴿5﴾";
+                document.getElementById('quranText').innerHTML = "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ ﴿1﴾ قُلْ هُوَ اللَّهُ أَحَدٌ ﴿2﴾ اللَّهُ الصَّمَدُ ﴿3﴾ لَمْ يَلِدْ وَلَمْ يُولَدْ ﴿4﴾ وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ ﴿5﴾";
             } else {
                 document.getElementById('quranText').innerHTML = `بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ<br><br>نص سورة <b>${name}</b> جاهز للتلاوة والاستماع عبر مشغل الصوت بالأعلى. (تم تحميل السورة بنجاح وبدون أي توقف).`;
             }
@@ -486,4 +501,41 @@
             "12. لا إله إلا الله وحده لا شريك له، له الملك وله الحمد وهو على كل شيء قدير (100 مرة).",
             "13. اللهم صلِّ وسلم وبارك على نبينا محمد (10 مرات).",
             "14. سبحان الله والحمد لله ولا إله إلا الله والله أكبر.",
-  
+            "15. لا حول ولا قوة إلا بالله العلي العظيم.",
+            "16. اللهم إنك عفو كريم تحب العفو فاعفُ عني.",
+            "17. آية الكرسي: ﴿اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ...﴾.",
+            "18. قراءة سورة الإخلاص، والمعوذتين (الفلق والناس).",
+            "19. أعوذ بكلمات الله التامات من شر ما خلق.",
+            "20. اللهم إني أعوذ بك من الهم والحزن، والعجز والكسل، والبخل والجبن.",
+            "21. اللهم عافني في بدني، اللهم عافني في سمعي، اللهم عافني في بصري.",
+            "22. اللهم إني أعوذ بك من الكفر والفقر، وأعوذ بك من عذاب القبر.",
+            "23. سيد الاستغفار: اللهم أنت ربي لا إله إلا أنت خلقتني وأنا عبدك...",
+            "24. ربّ اغفر لي وتب عليّ إنك أنت التواب الرحيم.",
+            "25. سبحان الله وبحمده، سبحان الله العظيم.",
+            "26. اللهم آتنا في الدنيا حسنة وفي الآخرة حسنة وقنا عذاب النار.",
+            "27. اللهم يا مقلب القلوب ثبت قلبي على دينك.",
+            "28. الحمد لله الذي أطعمنا وسقانا وكفانا وآوانا.",
+            "29. اللهم إني أسألك علماً نافعاً، ورزقاً طيباً، وعملاً متقبلاً.",
+            "30. استغفر الله العظيم وأتوب إليه (100 مرة)."
+        ];
+
+        function populateList(containerId, dataArray) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = "";
+            dataArray.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'item-box';
+                div.textContent = item;
+                container.appendChild(div);
+            });
+        }
+
+        window.onload = () => {
+            loadSurahText();
+            loadAudio();
+            populateList('hadithList', hadiths);
+            populateList('azkarList', azkar);
+        };
+    </script>
+</body>
+</html>

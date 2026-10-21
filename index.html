@@ -17,18 +17,19 @@
         }
 
         [data-theme="dark"] {
-            --bg-color: #000000;
+            --bg-color: #0d0d0e;
             --card-bg: #1c1c1e;
             --text-color: #f2f2f7;
-            --primary-color: #1b4d3e;
+            --primary-color: #123329;
             --accent-color: #4cd964;
             --dock-bg: rgba(255, 255, 255, 0.1);
-            --border-color: rgba(0, 0, 0, 0.15);
+            --border-color: rgba(255, 255, 255, 0.15);
         }
 
         * {
             -webkit-tap-highlight-color: transparent;
             -webkit-touch-callout: none;
+            box-sizing: border-box;
         }
 
         body {
@@ -36,8 +37,12 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
-            padding-bottom: 90px;
+            padding-bottom: 95px;
             transition: background 0.3s, color 0.3s;
+            /* خلفية مزخرفة بنمط هندسي راقي */
+            background-image: radial-gradient(rgba(27, 77, 62, 0.08) 1px, transparent 1px), radial-gradient(rgba(27, 77, 62, 0.08) 1px, var(--bg-color) 1px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
         }
 
         header {
@@ -48,6 +53,20 @@
             border-bottom-left-radius: 30px;
             border-bottom-right-radius: 30px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: background-color 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* نقوش زخرفية خلف الهيدر */
+        header::before {
+            content: "﴿ ۞ ﴾";
+            position: absolute;
+            top: -10px;
+            right: 15px;
+            font-size: 5rem;
+            opacity: 0.08;
+            color: white;
         }
 
         .header-center {
@@ -57,21 +76,59 @@
             gap: 6px;
         }
 
+        /* أنماط الساعة الـ 5 */
         .clock {
             font-size: 2.8rem;
             font-weight: bold;
+            color: #ffffff;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .clock-style-1 {
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             padding: 4px 30px;
             border-radius: 30px;
-            color: #ffffff;
-            letter-spacing: 2px;
             border: 1px solid rgba(255, 255, 255, 0.25);
         }
 
+        .clock-style-2 {
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px dashed #e0f2f1;
+            padding: 2px 25px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        }
+
+        .clock-style-3 {
+            background: linear-gradient(135deg, rgba(255,255,255,0.3), rgba(255,255,255,0.05));
+            border-radius: 50px;
+            padding: 6px 40px;
+            border: 1px solid rgba(255,255,255,0.4);
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .clock-style-4 {
+            border-top: 2px solid #e0f2f1;
+            border-bottom: 2px solid #e0f2f1;
+            padding: 0 20px;
+            letter-spacing: 4px;
+            font-size: 2.5rem;
+        }
+
+        .clock-style-5 {
+            background: #ffffff;
+            color: var(--primary-color);
+            padding: 2px 28px;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            font-size: 2.6rem;
+        }
+
         .header-title h1 {
-            margin: 0;
+            margin: 5px 0 0 0;
             font-size: 1.1rem;
             color: #e0f2f1;
             font-weight: normal;
@@ -179,12 +236,18 @@
             margin-bottom: 2px;
         }
 
-        .hadith-box {
+        .item-box {
             line-height: 1.8;
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             border-bottom: 1px solid var(--border-color);
-            padding-bottom: 15px;
-            margin-bottom: 15px;
+            padding-bottom: 12px;
+            margin-bottom: 12px;
+        }
+
+        .item-box:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
         }
 
         .info-row {
@@ -200,7 +263,7 @@
 
     <header id="appHeader">
         <div class="header-center">
-            <div class="clock" id="liveClock">00:00</div>
+            <div class="clock clock-style-1" id="liveClock">00:00</div>
             <div class="header-title">
                 <h1>القرآن الكريم والأحاديث الشريفة</h1>
             </div>
@@ -232,29 +295,23 @@
             </div>
         </div>
 
-        <!-- 2. الأحاديث (3 أحاديث) -->
+        <!-- 2. الأحاديث (30 حديثاً) -->
         <div id="hadithTab" class="tab-content">
             <div class="card">
-                <h3 style="color: var(--accent-color);">الأحاديث النبوية الشريفة</h3>
-                <div class="hadith-box">
-                    <b>الحديث الأول:</b> إنما الأعمال بالنيات، وإنما لكل امرئ ما نوى [رواه البخاري ومسلم]
-                </div>
-                <div class="hadith-box">
-                    <b>الحديث الثاني:</b> من كان يؤمن بالله واليوم الآخر فليقل خيراً أو ليصمت [رواه البخاري ومسلم]
-                </div>
-                <div class="hadith-box">
-                    <b>الحديث الثالث:</b> قل آمنت بالله ثم استقم [رواه مسلم]
+                <h3 style="color: var(--accent-color);">الأحاديث النبوية الشريفة (30 حديثاً)</h3>
+                <div id="hadithList" style="max-height: 500px; overflow-y: auto;">
+                    <!-- سيتم تعبئتها تلقائياً عبر الكود -->
                 </div>
             </div>
         </div>
 
-        <!-- 3. الأذكار -->
+        <!-- 3. الأذكار (30 ذكراً) -->
         <div id="azkarTab" class="tab-content">
             <div class="card">
-                <h3 style="color: var(--accent-color);">أذكار المسلم</h3>
-                <p>«سُبْحَانَ اللَّهِ وَبِحَمْدِهِ، عَدَدَ خَلْقِهِ، وَرِضَا نَفْسِهِ، وَزِنَةَ عَرْشِهِ، وَمِدَادَ كَلِمَاتِهِ»</p>
-                <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 15px 0;">
-                <p>«اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي»</p>
+                <h3 style="color: var(--accent-color);">أذكار المسلم (30 ذكراً)</h3>
+                <div id="azkarList" style="max-height: 500px; overflow-y: auto;">
+                    <!-- سيتم تعبئتها تلقائياً عبر الكود -->
+                </div>
             </div>
         </div>
 
@@ -262,8 +319,20 @@
         <div id="settingsTab" class="tab-content">
             <div class="card">
                 <h3 style="color: var(--accent-color);">الإعدادات والتفضيلات</h3>
+                
                 <label>المظهر (الوضع الداكن / الفاتح):</label>
                 <button class="action-btn" onclick="toggleTheme()">تبديل الوضع الداكن 🌙 / الفاتح ☀️</button>
+                
+                <br><br>
+                <label>نمط وشكل الساعة العلوية:</label>
+                <select id="clockStyleSelect" onchange="changeClockStyle()">
+                    <option value="clock-style-1">النمط 1: زجاجي شفاف (Classic)</option>
+                    <option value="clock-style-2">النمط 2: إطار منقط داكن</option>
+                    <option value="clock-style-3">النمط 3: تدرج دائري فاخر</option>
+                    <option value="clock-style-4">النمط 4: خطوط عصرية</option>
+                    <option value="clock-style-5">النمط 5: كارت أبيض بارز</option>
+                </select>
+
                 <br><br>
                 <label>تخصيص لون التطبيق:</label>
                 <select id="colorSelect" onchange="changeAppColor()">
@@ -271,7 +340,29 @@
                     <option value="#b71c1c">أحمر ملكي</option>
                     <option value="#0d47a1">أزرق عميق</option>
                     <option value="#f57f17">أصفر ذهبي</option>
+                    <option value="#212121">أسود فخم</option>
                 </select>
+            </div>
+
+            <!-- معلومات المطور والتحديثات المخفية سابقاً -->
+            <div class="card">
+                <h3 style="color: var(--accent-color);">معلومات التطبيق والمطور</h3>
+                <div class="info-row">
+                    <span>إصدار التطبيق:</span>
+                    <span>v3.5.0 (Ultimate Pro)</span>
+                </div>
+                <div class="info-row">
+                    <span>اسم المطور:</span>
+                    <span style="font-weight: bold; color: var(--accent-color);">Raouf 5Pro</span>
+                </div>
+                <div class="info-row">
+                    <span>محرك التشغيل:</span>
+                    <span>HTML5 / WebView Optimized</span>
+                </div>
+                <div class="info-row">
+                    <span>حالة التحديثات:</span>
+                    <span style="color: #4cd964; font-weight: bold;">محدث لأحدث إصدار رسمياً</span>
+                </div>
             </div>
         </div>
     </div>
@@ -304,6 +395,12 @@
         function toggleTheme() {
             const html = document.getElementById('htmlTag');
             html.toggleAttribute('data-theme');
+        }
+
+        function changeClockStyle() {
+            const style = document.getElementById('clockStyleSelect').value;
+            const clockEl = document.getElementById('liveClock');
+            clockEl.className = `clock ${style}`;
         }
 
         function changeAppColor() {
@@ -364,10 +461,48 @@
             document.getElementById('audioPlayer').src = `${server}${num}.mp3`;
         }
 
-        window.onload = () => {
-            loadSurahText();
-            loadAudio();
-        };
-    </script>
-</body>
-</html>
+        // قائمة الأحاديث 30 حديثاً
+        const hadiths = [
+            "1. إنما الأعمال بالنيات، وإنما لكل امرئ ما نوى.",
+            "2. من كان تؤمن بالله واليوم الآخر فليقل خيراً أو ليصمت.",
+            "3. قل آمنت بالله ثم استقم.",
+            "4. الدين النصيحة: لله ولكتابه ولرسوله ولأئمة المسلمين وعامتهم.",
+            "5. بني الإسلام على خمس: شهادة أن لا إله إلا الله وأن محمداً رسول الله...",
+            "6. من أحدث في أمرنا هذا ما ليس منه فهو رد.",
+            "7. الحلال بين والحرام بين وبينهما أمور مشتبهات...",
+            "8. لا يؤمن أحدكم حتى يحب لأخيه ما يحب لنفسه.",
+            "9. من حسن إسلام المرء تركه ما لا يعنيه.",
+            "10. لا تغضب، فردد مراراً قال: لا تغضب.",
+            "11. إن الله كتب الإحسان على كل شيء...",
+            "12. اتق الله حيثما كنت، وأتبع السيئة الحسنة تمحها، وخالق الناس بخلق حسن.",
+            "13. احفظ الله يحفظك، احفظ الله تجده تجاهك...",
+            "14. إذا لم تستحِ فاصنع ما شئت.",
+            "15. قل آمنت بالله ثم استقم.",
+            "16. الطهور شطر الإيمان، والحمد لله تملأ الميزان...",
+            "17. يا عبادي إني حرمت الظلم على نفسي وجعلته بينكم محرماً فلا تظالموا...",
+            "18. كل سلامى من الناس عليه صدقة كل يوم تطلع فيه الشمس...",
+            "19. البر حسن الخلق، والإثم ما حاك في نفسك وكرهت أن يطلع عليه الناس.",
+            "20. استقاموا ولن تحصوا، واعلموا أن خير أعمالكم الصلاة.",
+            "21. من سلك طريقاً يلتمس فيه علماً سهل الله له به طريقاً إلى الجنة.",
+            "22. إن الله طيب لا يقبل إلا طيباً...",
+            "23. دع ما يريبك إلى ما لا يريبك.",
+            "24. المسلم من سلم المسلمون من لسانه ويده.",
+            "25. تبسمك في وجه أخيك لك صدقة.",
+            "26. الكلمة الطيبة صدقة.",
+            "27. خيركم من تعلم القرآن وعلمه.",
+            "28. إنما بعثت لأتمم مكارم الأخلاق.",
+            "29. اتقوا النار ولو بشق تمرة.",
+            "30. الساعي على الأرملة والمسكين كالمجاهد في سبيل الله."
+        ];
+
+        // قائمة الأذكار 30 ذكراً
+        const azkar = [
+            "1. أصبحت وأصبح الملك لله، والحمد لله ولا إله إلا الله وحده لا شريك له.",
+            "2. أصبحنا على فطرة الإسلام وعلى كلمة الإخلاص وعلى دين نبينا محمد ﷺ.",
+            "3. رضيت بالله رباً، وبالإسلام ديناً، وبمحمد ﷺ نبياً ورسولاً.",
+            "4. اللهم ما أصبح بي من نعمة أو بأحد من خلقك فمنك وحدك لا شريك لك.",
+            "5. سبحان الله وبحمده عدد خلقه، ورضا نفسه، وزنة عرشه، ومداد كلماته.",
+            "6. بسم الله الذي لا يضر مع اسمه شيء في الأرض ولا في السماء وهو السميع العليم.",
+            "7. يا حي يا قيوم برحمتك أستغيث، أصلح لي شأني كله ولا تكلني إلى نفسي طرفة عين.",
+            "8. اللهم إني أسألك العافية في الدنيا والآخرة.",
+            "9. اللهم بك أصبحنا، وبك أمسينا،

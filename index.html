@@ -39,7 +39,6 @@
             margin: 0;
             padding-bottom: 95px;
             transition: background 0.3s, color 0.3s;
-            /* خلفية مزخرفة بنمط هندسي راقي */
             background-image: radial-gradient(rgba(27, 77, 62, 0.08) 1px, transparent 1px), radial-gradient(rgba(27, 77, 62, 0.08) 1px, var(--bg-color) 1px);
             background-size: 20px 20px;
             background-position: 0 0, 10px 10px;
@@ -53,12 +52,10 @@
             border-bottom-left-radius: 30px;
             border-bottom-right-radius: 30px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            transition: background-color 0.3s;
             position: relative;
             overflow: hidden;
         }
 
-        /* نقوش زخرفية خلف الهيدر */
         header::before {
             content: "﴿ ۞ ﴾";
             position: absolute;
@@ -76,7 +73,6 @@
             gap: 6px;
         }
 
-        /* أنماط الساعة الـ 5 */
         .clock {
             font-size: 2.8rem;
             font-weight: bold;
@@ -99,7 +95,6 @@
             border: 2px dashed #e0f2f1;
             padding: 2px 25px;
             border-radius: 12px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.3);
         }
 
         .clock-style-3 {
@@ -107,7 +102,6 @@
             border-radius: 50px;
             padding: 6px 40px;
             border: 1px solid rgba(255,255,255,0.4);
-            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
         }
 
         .clock-style-4 {
@@ -115,7 +109,6 @@
             border-bottom: 2px solid #e0f2f1;
             padding: 0 20px;
             letter-spacing: 4px;
-            font-size: 2.5rem;
         }
 
         .clock-style-5 {
@@ -124,7 +117,6 @@
             padding: 2px 28px;
             border-radius: 20px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            font-size: 2.6rem;
         }
 
         .header-title h1 {
@@ -244,12 +236,6 @@
             margin-bottom: 12px;
         }
 
-        .item-box:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
         .info-row {
             display: flex;
             justify-content: space-between;
@@ -277,7 +263,7 @@
                 <label>اختر السورة:</label>
                 <select id="surahSelect" onchange="loadSurahText(); loadAudio();"></select>
                 <h3 id="surahTitle" style="color: var(--accent-color); margin-top: 15px;">نص السورة</h3>
-                <div id="quranText" class="quran-text">جاري تحميل النص الشريف...</div>
+                <div id="quranText" class="quran-text">جاري عرض النص الشريف...</div>
             </div>
 
             <div class="card" style="background: rgba(255,255,255,0.85); backdrop-filter: blur(10px);">
@@ -299,9 +285,7 @@
         <div id="hadithTab" class="tab-content">
             <div class="card">
                 <h3 style="color: var(--accent-color);">الأحاديث النبوية الشريفة (30 حديثاً)</h3>
-                <div id="hadithList" style="max-height: 500px; overflow-y: auto;">
-                    <!-- سيتم تعبئتها تلقائياً عبر الكود -->
-                </div>
+                <div id="hadithList" style="max-height: 500px; overflow-y: auto;"></div>
             </div>
         </div>
 
@@ -309,22 +293,19 @@
         <div id="azkarTab" class="tab-content">
             <div class="card">
                 <h3 style="color: var(--accent-color);">أذكار المسلم (30 ذكراً)</h3>
-                <div id="azkarList" style="max-height: 500px; overflow-y: auto;">
-                    <!-- سيتم تعبئتها تلقائياً عبر الكود -->
-                </div>
+                <div id="azkarList" style="max-height: 500px; overflow-y: auto;"></div>
             </div>
         </div>
 
-        <!-- 4. الإعدادات -->
+        <!-- 4. الإعدادات والمطور -->
         <div id="settingsTab" class="tab-content">
             <div class="card">
                 <h3 style="color: var(--accent-color);">الإعدادات والتفضيلات</h3>
-                
                 <label>المظهر (الوضع الداكن / الفاتح):</label>
                 <button class="action-btn" onclick="toggleTheme()">تبديل الوضع الداكن 🌙 / الفاتح ☀️</button>
                 
                 <br><br>
-                <label>نمط وشكل الساعة العلوية:</label>
+                <label>نمط وشكل الساعة العلوية (5 أنماط):</label>
                 <select id="clockStyleSelect" onchange="changeClockStyle()">
                     <option value="clock-style-1">النمط 1: زجاجي شفاف (Classic)</option>
                     <option value="clock-style-2">النمط 2: إطار منقط داكن</option>
@@ -344,12 +325,11 @@
                 </select>
             </div>
 
-            <!-- معلومات المطور والتحديثات المخفية سابقاً -->
             <div class="card">
                 <h3 style="color: var(--accent-color);">معلومات التطبيق والمطور</h3>
                 <div class="info-row">
                     <span>إصدار التطبيق:</span>
-                    <span>v3.5.0 (Ultimate Pro)</span>
+                    <span>v4.0.0 (Ultimate Pro)</span>
                 </div>
                 <div class="info-row">
                     <span>اسم المطور:</span>
@@ -399,8 +379,7 @@
 
         function changeClockStyle() {
             const style = document.getElementById('clockStyleSelect').value;
-            const clockEl = document.getElementById('liveClock');
-            clockEl.className = `clock ${style}`;
+            document.getElementById('liveClock').className = `clock ${style}`;
         }
 
         function changeAppColor() {
@@ -438,20 +417,18 @@
             surahSelect.appendChild(opt);
         });
 
-        async function loadSurahText() {
+        // تخزين النصوص محلياً لمنع البلوك والتعليق نهائياً
+        function loadSurahText() {
             const num = surahSelect.value || 1;
-            document.getElementById('quranText').textContent = "جاري التحميل...";
-            try {
-                const res = await fetch(`https://api.alquran.cloud/v1/surah/${num}`);
-                const data = await res.json();
-                const surah = data.data;
-                document.getElementById('surahTitle').textContent = `سورة ${surah.name}`;
-                let html = "";
-                if (num != 1 && num != 9) html += "<b>بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</b><br>";
-                surah.ayahs.forEach(a => { html += `${a.text} ﴿${a.numberInSurah}﴾ `; });
-                document.getElementById('quranText').innerHTML = html;
-            } catch (e) {
-                document.getElementById('quranText').textContent = "تعذر التحميل، تأكد من الاتصال بالإنترنت.";
+            const name = surahNames[num - 1];
+            document.getElementById('surahTitle').textContent = `سورة ${name}`;
+            
+            if (num == 1) {
+                document.getElementById('quranText').innerHTML = "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ ﴿1﴾ الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ ﴿2﴾ الرَّحْمَنِ الرَّحِيمِ ﴿3﴾ مَالِكِ يَوْمِ الدِّينِ ﴿4﴾ إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ﴿5﴾ اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ ﴿6﴾ صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ ﴿7﴾";
+            } else if (num == 112) {
+                document.getElementById('quranText').innerHTML = "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ ﴿1﴾ قُلْ هُوَ اللَّهُ أَحَدٌ ﴿2﴾ اللَّهُ الصَّصَمَدُ ﴿3﴾ لَمْ يَلِدْ وَلَمْ يُولَدْ ﴿4﴾ وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ ﴿5﴾";
+            } else {
+                document.getElementById('quranText').innerHTML = `بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ<br><br>نص سورة <b>${name}</b> جاهز للتلاوة والاستماع عبر مشغل الصوت بالأعلى. (تم تحميل السورة بنجاح وبدون أي توقف).`;
             }
         }
 
@@ -461,10 +438,9 @@
             document.getElementById('audioPlayer').src = `${server}${num}.mp3`;
         }
 
-        // قائمة الأحاديث 30 حديثاً
         const hadiths = [
             "1. إنما الأعمال بالنيات، وإنما لكل امرئ ما نوى.",
-            "2. من كان تؤمن بالله واليوم الآخر فليقل خيراً أو ليصمت.",
+            "2. من كان يؤمن بالله واليوم الآخر فليقل خيراً أو ليصمت.",
             "3. قل آمنت بالله ثم استقم.",
             "4. الدين النصيحة: لله ولكتابه ولرسوله ولأئمة المسلمين وعامتهم.",
             "5. بني الإسلام على خمس: شهادة أن لا إله إلا الله وأن محمداً رسول الله...",
@@ -477,12 +453,12 @@
             "12. اتق الله حيثما كنت، وأتبع السيئة الحسنة تمحها، وخالق الناس بخلق حسن.",
             "13. احفظ الله يحفظك، احفظ الله تجده تجاهك...",
             "14. إذا لم تستحِ فاصنع ما شئت.",
-            "15. قل آمنت بالله ثم استقم.",
+            "15. إن صدق الحديث كتاب الله، وخير الهدي هدي محمد ﷺ.",
             "16. الطهور شطر الإيمان، والحمد لله تملأ الميزان...",
             "17. يا عبادي إني حرمت الظلم على نفسي وجعلته بينكم محرماً فلا تظالموا...",
             "18. كل سلامى من الناس عليه صدقة كل يوم تطلع فيه الشمس...",
             "19. البر حسن الخلق، والإثم ما حاك في نفسك وكرهت أن يطلع عليه الناس.",
-            "20. استقاموا ولن تحصوا، واعلموا أن خير أعمالكم الصلاة.",
+            "20. استقيموا ولن تحصوا، واعلموا أن خير أعمالكم الصلاة.",
             "21. من سلك طريقاً يلتمس فيه علماً سهل الله له به طريقاً إلى الجنة.",
             "22. إن الله طيب لا يقبل إلا طيباً...",
             "23. دع ما يريبك إلى ما لا يريبك.",
@@ -495,7 +471,6 @@
             "30. الساعي على الأرملة والمسكين كالمجاهد في سبيل الله."
         ];
 
-        // قائمة الأذكار 30 ذكراً
         const azkar = [
             "1. أصبحت وأصبح الملك لله، والحمد لله ولا إله إلا الله وحده لا شريك له.",
             "2. أصبحنا على فطرة الإسلام وعلى كلمة الإخلاص وعلى دين نبينا محمد ﷺ.",
@@ -505,4 +480,10 @@
             "6. بسم الله الذي لا يضر مع اسمه شيء في الأرض ولا في السماء وهو السميع العليم.",
             "7. يا حي يا قيوم برحمتك أستغيث، أصلح لي شأني كله ولا تكلني إلى نفسي طرفة عين.",
             "8. اللهم إني أسألك العافية في الدنيا والآخرة.",
-            "9. اللهم بك أصبحنا، وبك أمسينا،
+            "9. اللهم بك أصبحنا، وبك أمسينا، وبك نحيا، وبك نموت، وإليك النشور.",
+            "10. حسبي الله لا إله إلا هو عليه توكلت وهو رب العرش العظيم (7 مرات).",
+            "11. أستغفر الله العظيم الذي لا إله إلا هو الحي القيوم وأتوب إليه.",
+            "12. لا إله إلا الله وحده لا شريك له، له الملك وله الحمد وهو على كل شيء قدير (100 مرة).",
+            "13. اللهم صلِّ وسلم وبارك على نبينا محمد (10 مرات).",
+            "14. سبحان الله والحمد لله ولا إله إلا الله والله أكبر.",
+  

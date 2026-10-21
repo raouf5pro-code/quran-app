@@ -26,10 +26,10 @@
             --border-color: rgba(255, 255, 255, 0.15);
         }
 
+        /* منع أي تحديد أو مربع أزرق عند اللمس */
         * {
             -webkit-tap-highlight-color: transparent;
             -webkit-touch-callout: none;
-            user-select: none;
         }
 
         body {
@@ -41,14 +41,15 @@
             transition: background 0.3s, color 0.3s;
         }
 
+        /* الهيدر العلوي يملأ الشاشة كاملاً */
         header {
             background-color: var(--primary-color);
             color: white;
             padding: 30px 15px 40px 15px;
             text-align: center;
-            border-bottom-left-radius: 35px;
-            border-bottom-right-radius: 35px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             transition: background-color 0.3s;
         }
 
@@ -56,25 +57,25 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         .clock {
-            font-size: 2.3rem;
+            font-size: 2.2rem;
             font-weight: bold;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            padding: 8px 28px;
-            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 6px 26px;
+            border-radius: 25px;
             color: #ffffff;
             letter-spacing: 2px;
-            border: 1px solid rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .header-title h1 {
             margin: 0;
-            font-size: 1.25rem;
+            font-size: 1.15rem;
             color: #e0f2f1;
             font-weight: normal;
         }
@@ -144,11 +145,11 @@
             display: flex;
             justify-content: space-around;
             align-items: center;
-            width: 90%;
-            max-width: 400px;
-            padding: 8px 10px;
-            border-radius: 35px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 85%;
+            max-width: 350px;
+            padding: 8px 12px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             z-index: 1000;
         }
@@ -157,29 +158,24 @@
             background: transparent;
             border: none;
             color: var(--text-color);
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             display: flex;
             flex-direction: column;
             align-items: center;
             cursor: pointer;
-            padding: 6px 10px;
+            padding: 6px 14px;
             border-radius: 20px;
-            transition: all 0.3s ease;
+            transition: 0.2s;
             font-family: 'Amiri', serif;
             opacity: 0.75;
             outline: none;
         }
 
         .dock-item.active {
-            background-color: rgba(0, 0, 0, 0.08);
             color: var(--accent-color);
             font-weight: bold;
             opacity: 1;
-            transform: translateY(-2px);
-        }
-
-        [data-theme="dark"] .dock-item.active {
-            background-color: rgba(255, 255, 255, 0.15);
+            transform: scale(1.05);
         }
 
         .dock-icon {
@@ -221,10 +217,10 @@
             <div class="card">
                 <h3 style="margin-top:0; color: var(--accent-color);" id="playerTitle">مشغل التلاوة</h3>
                 <label id="lblSurah">اختر السورة (60 حزب):</label>
-                <select id="surahSelect" onchange="loadQuranData()"></select>
+                <select id="surahSelect" onchange="loadSurahText(); loadAudio();"></select>
 
                 <label id="lblReciter" style="margin-top: 12px; display: block;">اختر القارئ:</label>
-                <select id="reciterSelect" onchange="loadQuranData()">
+                <select id="reciterSelect" onchange="loadAudio()">
                     <option value="https://sv1.islamweb.net/media/Audio/quran/sds/1/">عبد الرحمن السديس</option>
                     <option value="https://server11.mp3quran.net/shur/">سعود الشريم</option>
                     <option value="https://server12.mp3quran.net/maher/">ماهر المعيقلي</option>
@@ -238,7 +234,7 @@
 
             <div class="card">
                 <h3 id="surahTitle" style="color: var(--accent-color);">نص السورة</h3>
-                <div id="quranText" class="quran-text">جاري تحميل الآيات...</div>
+                <div id="quranText" class="quran-text">جاري تحميل النص الشريف...</div>
             </div>
         </div>
 
@@ -257,17 +253,7 @@
             </div>
         </div>
 
-        <!-- 3. الأذكار -->
-        <div id="azkarTab" class="tab-content">
-            <div class="card">
-                <h3 style="color: var(--accent-color);" id="azkarTitle">أذكار المسلم</h3>
-                <p>«سُبْحَانَ اللَّهِ وَبِحَمْدِهِ، عَدَدَ خَلْقِهِ، وَرِضَا نَفْسِهِ، وَزِنَةَ عَرْشِهِ، وَمِدَادَ كَلِمَاتِهِ»</p>
-                <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 15px 0;">
-                <p>«اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي»</p>
-            </div>
-        </div>
-
-        <!-- 4. الإعدادات -->
+        <!-- 3. الإعدادات -->
         <div id="settingsTab" class="tab-content">
             <div class="card">
                 <h3 style="color: var(--accent-color);" id="settingsTitle">الإعدادات والتفضيلات</h3>
@@ -298,7 +284,7 @@
                 <h3 style="color: var(--accent-color);" id="infoTitle">معلومات التطبيق والإصدار</h3>
                 <div class="info-row">
                     <span id="lblVersion">إصدار التطبيق:</span>
-                    <span>v3.2.0 (Ultimate Pro)</span>
+                    <span>v2.5.0 (Ultimate Pro)</span>
                 </div>
                 <div class="info-row">
                     <span id="lblDev">المطور:</span>
@@ -314,4 +300,171 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- شريط التنقل السفلي 3 أزرار أصلية مستقرة -->
+    <nav class="iphone-dock">
+        <button class="dock-item active" onclick="switchTab('quranTab', this)">
+            <span class="dock-icon">📖</span>
+            <span id="navQuran">القرآن</span>
+        </button>
+        <button class="dock-item" onclick="switchTab('hadithTab', this)">
+            <span class="dock-icon">📜</span>
+            <span id="navHadith">الأحاديث</span>
+        </button>
+        <button class="dock-item" onclick="switchTab('settingsTab', this)">
+            <span class="dock-icon">⚙️</span>
+            <span id="navSettings">الإعدادات</span>
+        </button>
+    </nav>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            document.getElementById('liveClock').textContent = `${hours}:${minutes}`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        function toggleTheme() {
+            const htmlTag = document.getElementById('htmlTag');
+            if (htmlTag.getAttribute('data-theme') === 'dark') {
+                htmlTag.removeAttribute('data-theme');
+            } else {
+                htmlTag.setAttribute('data-theme', 'dark');
+            }
+        }
+
+        function changeAppColor() {
+            const color = document.getElementById('colorSelect').value;
+            document.getElementById('appHeader').style.backgroundColor = color;
+        }
+
+        function switchTab(tabId, btn) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.dock-item').forEach(el => el.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            btn.classList.add('active');
+        }
+
+        const surahSelect = document.getElementById('surahSelect');
+        const reciterSelect = document.getElementById('reciterSelect');
+        const audioPlayer = document.getElementById('audioPlayer');
+        const quranText = document.getElementById('quranText');
+        const surahTitle = document.getElementById('surahTitle');
+
+        const surahNames = [
+            "الفاتحة", "البقرة", "آل عمران", "النساء", "المائدة", "الأنعام", "الأعراف", "الأنفال", "التوبة", "يونس",
+            "هود", "يوسف", "الرعد", "إبراهيم", "الحجر", "النحل", "الإسراء", "الكهف", "مريم", "طه",
+            "الأنبياء", "الحج", "المؤمنون", "النور", "الفرقان", "الشعراء", "النمل", "القصص", "العنكبوت", "الروم",
+            "لقمان", "السجدة", "الأحزاب", "سبأ", "فاطر", "يس", "الصافات", "ص", "الزمر", "غافر",
+            "فصلت", "الشورى", "الزخرف", "الدخان", "الجاثية", "الأحقاف", "محمد", "الفتح", "الحجرات", "ق",
+            "الذاريات", "الطور", "النجم", "القمر", "الرحمن", "الواقعة", "الحديد", "المجادلة", "الحشر", "الممتحنة",
+            "الصف", "الجمعة", "المنافقون", "التغابن", "الطلاق", "التحريم", "الملك", "القلم", "الحاقة", "المعارج",
+            "نوح", "الجن", "المزمل", "المدثر", "القيامة", "الإنسان", "المرسلات", "النبأ", "النازعات", "عبس",
+            "التكوير", "الانفطار", "المطففين", "الانشقاق", "البروج", "الطارق", "الأعلى", "الغاشية", "الفجر", "البلد",
+            "الشمس", "الليل", "الضحى", "الشرح", "التين", "العلق", "القدر", "البينة", "الزلزلة", "العاديات",
+            "القارعة", "التكاثر", "العصر", "الهمزة", "الفيل", "قريش", "الماعون", "الكوثر", "الكافرون", "النصر",
+            "المسد", "الإخلاص", "الفلق", "الناس"
+        ];
+
+        function populateSurahs() {
+            surahSelect.innerHTML = '';
+            surahNames.forEach((name, index) => {
+                const option = document.createElement('option');
+                option.value = index + 1;
+                option.textContent = `${index + 1}. سورة ${name}`;
+                surahSelect.appendChild(option);
+            });
+            loadSurahText();
+            loadAudio();
+        }
+
+        async function loadSurahText() {
+            const surahNum = surahSelect.value || 1;
+            quranText.innerHTML = "جاري تحميل النص الشريف...";
+            try {
+                const res = await fetch(`https://api.alquran.cloud/v1/surah/${surahNum}`);
+                const data = await res.json();
+                const surah = data.data;
+                surahTitle.textContent = `سورة ${surah.name}`;
+                
+                let textHtml = "";
+                if (surahNum != 1 && surahNum != 9) {
+                    textHtml += "<p style='text-align:center; font-weight:bold;'>بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>";
+                }
+                
+                surah.ayahs.forEach(ayah => {
+                    textHtml += `${ayah.text} ﴿${ayah.numberInSurah}﴾ `;
+                });
+                quranText.innerHTML = textHtml;
+            } catch (err) {
+                quranText.innerHTML = "تعذر تحميل النص، تأكد من الاتصال بالإنترنت.";
+            }
+        }
+
+        function loadAudio() {
+            const server = reciterSelect.value;
+            const surahNum = String(surahSelect.value || 1).padStart(3, '0');
+            if (server) {
+                audioPlayer.src = `${server}${surahNum}.mp3`;
+            }
+        }
+
+        function changeLanguage() {
+            const lang = document.getElementById('langSelect').value;
+            const htmlTag = document.getElementById('htmlTag');
+
+            if (lang === 'fr') {
+                htmlTag.setAttribute('dir', 'ltr');
+                document.getElementById('appTitle').textContent = "Coran & Hadith Ultimate Pro";
+                document.getElementById('navQuran').textContent = "Coran";
+                document.getElementById('navHadith').textContent = "Hadiths";
+                document.getElementById('navSettings').textContent = "Paramètres";
+                document.getElementById('playerTitle').textContent = "Lecteur Audio";
+                document.getElementById('lblSurah').textContent = "Choisir la Sourate:";
+                document.getElementById('lblReciter').textContent = "Choisir le Récitateur:";
+                document.getElementById('hadithMainTitle').textContent = "Hadiths Prophétiques";
+                document.getElementById('settingsTitle').textContent = "Paramètres & Préférences";
+                document.getElementById('lblTheme').textContent = "Thème (Sombre / Clair):";
+                document.getElementById('lblColor').textContent = "Personnaliser la couleur:";
+                document.getElementById('lblLang').textContent = "Langue de l'application:";
+                document.getElementById('infoTitle').textContent = "Informations de l'application";
+                document.getElementById('lblVersion').textContent = "Version:";
+                document.getElementById('lblDev').textContent = "Développeur:";
+                document.getElementById('lblEngine').textContent = "Moteur:";
+                document.getElementById('lblUpdate').textContent = "Mises à jour:";
+            } else {
+                htmlTag.setAttribute('dir', 'rtl');
+                document.getElementById('appTitle').textContent = "القرآن الكريم والأحاديث الشريفة";
+                document.getElementById('navQuran').textContent = "القرآن";
+                document.getElementById('navHadith').textContent = "الأحاديث";
+                document.getElementById('navSettings').textContent = "الإعدادات";
+                document.getElementById('playerTitle').textContent = "مشغل التلاوة";
+                document.getElementById('lblSurah').textContent = "اختر السورة (60 حزب):";
+                document.getElementById('lblReciter').textContent = "اختر القارئ:";
+                document.getElementById('hadithMainTitle').textContent = "الأحاديث النبوية الشريفة";
+                document.getElementById('settingsTitle').textContent = "الإعدادات والتفضيلات";
+                document.getElementById('lblTheme').textContent = "المظهر (الوضع الداكن / الفاتح):";
+                document.getElementById('lblColor').textContent = "تخصيص لون التطبيق:";
+                document.getElementById('lblLang').textContent = "لغة التطبيق:";
+                document.getElementById('infoTitle').textContent = "معلومات التطبيق والإصدار";
+                document.getElementById('lblVersion').textContent = "إصدار التطبيق:";
+                document.getElementById('lblDev').textContent = "المطور:";
+                document.getElementById('lblEngine').textContent = "محرك التشغيل:";
+                document.getElementById('lblUpdate').textContent = "حالة التحديثات:";
+            }
+        }
+
+        window.onload = () => {
+            populateSurahs();
+        };
+    </script>
+</body>
+</html>
+
             

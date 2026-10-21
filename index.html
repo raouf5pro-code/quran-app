@@ -26,7 +26,6 @@
             --border-color: rgba(255, 255, 255, 0.15);
         }
 
-        /* منع أي تحديد أو مربع أزرق عند اللمس */
         * {
             -webkit-tap-highlight-color: transparent;
             -webkit-touch-callout: none;
@@ -41,7 +40,7 @@
             transition: background 0.3s, color 0.3s;
         }
 
-        /* الهيدر العلوي يملأ الشاشة كاملاً */
+        /* الهيدر العلوي كاملاً */
         header {
             background-color: var(--primary-color);
             color: white;
@@ -60,17 +59,18 @@
             gap: 8px;
         }
 
+        /* الساعة كبيرة وشفافة بتأثير زجاجي */
         .clock {
-            font-size: 2.2rem;
+            font-size: 2.8rem;
             font-weight: bold;
             background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            padding: 6px 26px;
-            border-radius: 25px;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 6px 35px;
+            border-radius: 30px;
             color: #ffffff;
             letter-spacing: 2px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.25);
         }
 
         .header-title h1 {
@@ -118,9 +118,12 @@
             outline: none;
         }
 
+        /* مشغل تلاوة شفاف وخفيف */
         audio {
             width: 100%;
             margin-top: 10px;
+            opacity: 0.9;
+            background: transparent;
         }
 
         .quran-text {
@@ -134,6 +137,7 @@
             text-align: justify;
         }
 
+        /* شريط التنقل السفلي */
         .iphone-dock {
             position: fixed;
             bottom: 15px;
@@ -145,9 +149,9 @@
             display: flex;
             justify-content: space-around;
             align-items: center;
-            width: 85%;
-            max-width: 350px;
-            padding: 8px 12px;
+            width: 90%;
+            max-width: 400px;
+            padding: 8px 10px;
             border-radius: 30px;
             border: 1px solid rgba(255, 255, 255, 0.15);
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
@@ -158,12 +162,12 @@
             background: transparent;
             border: none;
             color: var(--text-color);
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             display: flex;
             flex-direction: column;
             align-items: center;
             cursor: pointer;
-            padding: 6px 14px;
+            padding: 6px 10px;
             border-radius: 20px;
             transition: 0.2s;
             font-family: 'Amiri', serif;
@@ -204,6 +208,7 @@
 
     <header id="appHeader">
         <div class="header-center">
+            <!-- الساعة كبيرة وشفافة -->
             <div class="clock" id="liveClock">00:00</div>
             <div class="header-title">
                 <h1 id="appTitle">القرآن الكريم والأحاديث الشريفة</h1>
@@ -214,12 +219,20 @@
     <div class="container">
         <!-- 1. القرآن الكريم -->
         <div id="quranTab" class="tab-content active">
+            <!-- جعل نص السورة واختيار السورة في الأعلى -->
             <div class="card">
-                <h3 style="margin-top:0; color: var(--accent-color);" id="playerTitle">مشغل التلاوة</h3>
                 <label id="lblSurah">اختر السورة (60 حزب):</label>
                 <select id="surahSelect" onchange="loadSurahText(); loadAudio();"></select>
+                
+                <h3 id="surahTitle" style="color: var(--accent-color); margin-top: 15px;">نص السورة</h3>
+                <div id="quranText" class="quran-text">جاري تحميل النص الشريف...</div>
+            </div>
 
-                <label id="lblReciter" style="margin-top: 12px; display: block;">اختر القارئ:</label>
+            <!-- مشغل التلاوة أصبح في الأسفل شفافاً -->
+            <div class="card" style="background: rgba(255,255,255,0.85); backdrop-filter: blur(10px);">
+                <h3 style="margin-top:0; color: var(--accent-color);" id="playerTitle">مشغل التلاوة</h3>
+                
+                <label id="lblReciter" style="display: block;">اختر القارئ:</label>
                 <select id="reciterSelect" onchange="loadAudio()">
                     <option value="https://sv1.islamweb.net/media/Audio/quran/sds/1/">عبد الرحمن السديس</option>
                     <option value="https://server11.mp3quran.net/shur/">سعود الشريم</option>
@@ -231,14 +244,9 @@
 
                 <audio id="audioPlayer" controls></audio>
             </div>
-
-            <div class="card">
-                <h3 id="surahTitle" style="color: var(--accent-color);">نص السورة</h3>
-                <div id="quranText" class="quran-text">جاري تحميل النص الشريف...</div>
-            </div>
         </div>
 
-        <!-- 2. الأحاديث -->
+        <!-- 2. الأحاديث النبوية (3 أحاديث) -->
         <div id="hadithTab" class="tab-content">
             <div class="card">
                 <h3 style="color: var(--accent-color);" id="hadithMainTitle">الأحاديث النبوية الشريفة</h3>
@@ -249,11 +257,24 @@
                     <div class="hadith-box">
                         <b>الحديث الثاني:</b> عن أبي هريرة رضي الله عنه أن رسول الله صلى الله عليه وسلم قال: «من كان يؤمن بالله واليوم الآخر فليقل خيراً أو ليصمت...» [رواه البخاري ومسلم]
                     </div>
+                    <div class="hadith-box">
+                        <b>الحديث الثالث:</b> عن أبي عمرو -وقيل أبي عمرة- سفيان بن عبد الله رضي الله عنه قال: قلت: يا رسول الله، قل لي في الإسلام قولاً لا أسأل عنه أحداً غيرك، قال: «قل آمنت بالله ثم استقم» [رواه مسلم]
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- 3. الإعدادات -->
+        <!-- 3. الأذكار (الخانة الجديدة المضافة) -->
+        <div id="azkarTab" class="tab-content">
+            <div class="card">
+                <h3 style="color: var(--accent-color);" id="azkarTitle">أذكار المسلم</h3>
+                <p>«سُبْحَانَ اللَّهِ وَبِحَمْدِهِ، عَدَدَ خَلْقِهِ، وَرِضَا نَفْسِهِ، وَزِنَةَ عَرْشِهِ، وَمِدَادَ كَلِمَاتِهِ»</p>
+                <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 15px 0;">
+                <p>«اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي»</p>
+            </div>
+        </div>
+
+        <!-- 4. الإعدادات -->
         <div id="settingsTab" class="tab-content">
             <div class="card">
                 <h3 style="color: var(--accent-color);" id="settingsTitle">الإعدادات والتفضيلات</h3>
@@ -284,7 +305,7 @@
                 <h3 style="color: var(--accent-color);" id="infoTitle">معلومات التطبيق والإصدار</h3>
                 <div class="info-row">
                     <span id="lblVersion">إصدار التطبيق:</span>
-                    <span>v2.5.0 (Ultimate Pro)</span>
+                    <span>v2.6.0 (Ultimate Pro)</span>
                 </div>
                 <div class="info-row">
                     <span id="lblDev">المطور:</span>
@@ -302,7 +323,7 @@
         </div>
     </div>
 
-    <!-- شريط التنقل السفلي 3 أزرار أصلية مستقرة -->
+    <!-- شريط التنقل السفلي مع إدخال خانة الأذكار -->
     <nav class="iphone-dock">
         <button class="dock-item active" onclick="switchTab('quranTab', this)">
             <span class="dock-icon">📖</span>
@@ -311,6 +332,10 @@
         <button class="dock-item" onclick="switchTab('hadithTab', this)">
             <span class="dock-icon">📜</span>
             <span id="navHadith">الأحاديث</span>
+        </button>
+        <button class="dock-item" onclick="switchTab('azkarTab', this)">
+            <span class="dock-icon">📿</span>
+            <span id="navAzkar">الأذكار</span>
         </button>
         <button class="dock-item" onclick="switchTab('settingsTab', this)">
             <span class="dock-icon">⚙️</span>
@@ -424,11 +449,13 @@
                 document.getElementById('appTitle').textContent = "Coran & Hadith Ultimate Pro";
                 document.getElementById('navQuran').textContent = "Coran";
                 document.getElementById('navHadith').textContent = "Hadiths";
+                document.getElementById('navAzkar').textContent = "Azkar";
                 document.getElementById('navSettings').textContent = "Paramètres";
                 document.getElementById('playerTitle').textContent = "Lecteur Audio";
                 document.getElementById('lblSurah').textContent = "Choisir la Sourate:";
                 document.getElementById('lblReciter').textContent = "Choisir le Récitateur:";
                 document.getElementById('hadithMainTitle').textContent = "Hadiths Prophétiques";
+                document.getElementById('azkarTitle').textContent = "Azkar Muslim";
                 document.getElementById('settingsTitle').textContent = "Paramètres & Préférences";
                 document.getElementById('lblTheme').textContent = "Thème (Sombre / Clair):";
                 document.getElementById('lblColor').textContent = "Personnaliser la couleur:";
@@ -443,28 +470,9 @@
                 document.getElementById('appTitle').textContent = "القرآن الكريم والأحاديث الشريفة";
                 document.getElementById('navQuran').textContent = "القرآن";
                 document.getElementById('navHadith').textContent = "الأحاديث";
+                document.getElementById('navAzkar').textContent = "الأذكار";
                 document.getElementById('navSettings').textContent = "الإعدادات";
                 document.getElementById('playerTitle').textContent = "مشغل التلاوة";
-                document.getElementById('lblSurah').textContent = "اختر السورة (60 حزب):";
-                document.getElementById('lblReciter').textContent = "اختر القارئ:";
-                document.getElementById('hadithMainTitle').textContent = "الأحاديث النبوية الشريفة";
-                document.getElementById('settingsTitle').textContent = "الإعدادات والتفضيلات";
-                document.getElementById('lblTheme').textContent = "المظهر (الوضع الداكن / الفاتح):";
-                document.getElementById('lblColor').textContent = "تخصيص لون التطبيق:";
-                document.getElementById('lblLang').textContent = "لغة التطبيق:";
-                document.getElementById('infoTitle').textContent = "معلومات التطبيق والإصدار";
-                document.getElementById('lblVersion').textContent = "إصدار التطبيق:";
-                document.getElementById('lblDev').textContent = "المطور:";
-                document.getElementById('lblEngine').textContent = "محرك التشغيل:";
-                document.getElementById('lblUpdate').textContent = "حالة التحديثات:";
-            }
-        }
-
-        window.onload = () => {
-            populateSurahs();
-        };
-    </script>
-</body>
-</html>
+                document.getElementById('lbl
 
             

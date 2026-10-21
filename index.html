@@ -17,12 +17,12 @@
         }
 
         [data-theme="dark"] {
-            --bg-color: #0d0d0e;
-            --card-bg: #1c1c1e;
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
             --text-color: #f2f2f7;
-            --primary-color: #123329;
+            --primary-color: #0d231d;
             --accent-color: #4cd964;
-            --dock-bg: rgba(255, 255, 255, 0.1);
+            --dock-bg: rgba(0, 0, 0, 0.4);
             --border-color: rgba(255, 255, 255, 0.15);
         }
 
@@ -34,21 +34,37 @@
 
         body {
             font-family: 'Amiri', serif;
-            /* جعل خلفية الشاشة وحوافها تتلون بلون التطبيق الأساسي كما طلبته */
+            /* اللون المحيط بالحواف والأطراف بالكامل */
             background-color: var(--primary-color);
             color: var(--text-color);
             margin: 0;
-            padding-bottom: 95px;
+            padding: 10px 10px 95px 10px;
             transition: background-color 0.3s, color 0.3s;
+            min-height: 100vh;
+        }
+
+        /* حاوية التطبيق بحواف دائرية ومائلة مثل الآيفون */
+        .app-frame {
+            background-color: var(--bg-color);
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.3);
+            max-width: 800px;
+            margin: 0 auto;
+            border: 3px solid rgba(255, 255, 255, 0.15);
+            transition: background-color 0.3s;
         }
 
         header {
-            background-color: transparent;
+            background-color: var(--primary-color);
             color: white;
             padding: 25px 15px 35px 15px;
             text-align: center;
+            border-bottom-left-radius: 35px;
+            border-bottom-right-radius: 35px;
             position: relative;
             overflow: hidden;
+            transition: background-color 0.3s;
         }
 
         header::before {
@@ -123,15 +139,6 @@
 
         .container {
             padding: 15px;
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 10;
-            background: var(--bg-color);
-            border-top-left-radius: 35px;
-            border-top-right-radius: 35px;
-            min-height: 80vh;
-            box-shadow: 0 -5px 25px rgba(0,0,0,0.15);
         }
 
         .tab-content {
@@ -149,7 +156,7 @@
             margin-bottom: 15px;
             box-shadow: 0 6px 18px rgba(0,0,0,0.08);
             border: 2px solid var(--primary-color);
-            transition: border-color 0.3s;
+            transition: background-color 0.3s, border-color 0.3s;
         }
 
         select, button.action-btn {
@@ -182,8 +189,8 @@
             cursor: pointer;
         }
 
-        .quran-text:hover {
-            background: rgba(0,0,0,0.04);
+        [data-theme="dark"] .quran-text {
+            background: rgba(255,255,255,0.03);
         }
 
         .reader-nav {
@@ -206,10 +213,6 @@
             box-shadow: 0 3px 10px rgba(0,0,0,0.15);
         }
 
-        .nav-btn:active {
-            transform: scale(0.95);
-        }
-
         #fullscreenReader {
             display: none;
             position: fixed;
@@ -222,6 +225,7 @@
             flex-direction: column;
             padding: 20px;
             overflow-y: auto;
+            color: var(--text-color);
         }
 
         .reader-header {
@@ -341,109 +345,111 @@
 </head>
 <body>
 
-    <header id="appHeader">
-        <div class="header-center">
-            <div class="clock clock-style-1" id="liveClock">00:00</div>
-            <div class="header-title">
-                <h1>القرآن الكريم والأحاديث الشريفة</h1>
+    <div class="app-frame">
+        <header id="appHeader">
+            <div class="header-center">
+                <div class="clock clock-style-1" id="liveClock">00:00</div>
+                <div class="header-title">
+                    <h1>القرآن الكريم والأحاديث الشريفة</h1>
+                </div>
             </div>
-        </div>
-    </header>
+        </header>
 
-    <div class="container">
-        <!-- 1. القرآن الكريم -->
-        <div id="quranTab" class="tab-content active">
-            <div class="card">
-                <label>اختر السورة:</label>
-                <select id="surahSelect" onchange="loadSurahText(); loadAudio();"></select>
-                
-                <h3 id="surahTitle" style="color: var(--accent-color); margin-top: 15px;">نص السورة</h3>
-                <div id="quranText" class="quran-text" onclick="openFullscreenReader()" title="اضغط للقراءة في صفحة كاملة">جاري عرض النص الشريف...</div>
-                
-                <div class="reader-nav">
-                    <button class="nav-btn" onclick="changeSurah(-1)">⬅️ السورة السابقة</button>
-                    <span style="font-size: 0.9rem; color: var(--accent-color); font-weight: bold;">📖 اضغط على النص للتكبير</span>
-                    <button class="nav-btn" onclick="changeSurah(1)">السورة التالية ➡️</button>
+        <div class="container">
+            <!-- 1. القرآن الكريم -->
+            <div id="quranTab" class="tab-content active">
+                <div class="card">
+                    <label>اختر السورة:</label>
+                    <select id="surahSelect" onchange="loadSurahText(); loadAudio();"></select>
+                    
+                    <h3 id="surahTitle" style="color: var(--accent-color); margin-top: 15px;">نص السورة</h3>
+                    <div id="quranText" class="quran-text" onclick="openFullscreenReader()" title="اضغط للقراءة في صفحة كاملة">جاري عرض النص الشريف...</div>
+                    
+                    <div class="reader-nav">
+                        <button class="nav-btn" onclick="changeSurah(-1)">⬅️ السورة السابقة</button>
+                        <span style="font-size: 0.9rem; color: var(--accent-color); font-weight: bold;">📖 اضغط على النص للتكبير</span>
+                        <button class="nav-btn" onclick="changeSurah(1)">السورة التالية ➡️</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 style="margin-top:0; color: var(--accent-color);">مشغل التلاوة</h3>
+                    <label>اختر القارئ:</label>
+                    <select id="reciterSelect" onchange="loadAudio()">
+                        <option value="https://sv1.islamweb.net/media/Audio/quran/sds/1/">عبد الرحمن السديس</option>
+                        <option value="https://server11.mp3quran.net/shur/">سعود الشريم</option>
+                        <option value="https://server12.mp3quran.net/maher/">ماهر المعيقلي</option>
+                        <option value="https://server8.mp3quran.net/afs/">مشاري العفاسي</option>
+                        <option value="https://server7.mp3quran.net/abdulsamad/">عبد الباسط عبد الصمد</option>
+                        <option value="https://server6.mp3quran.net/husr/">محمود خليل الحصري</option>
+                    </select>
+                    <audio id="audioPlayer" controls></audio>
                 </div>
             </div>
 
-            <div class="card" style="background: rgba(255,255,255,0.85); backdrop-filter: blur(10px);">
-                <h3 style="margin-top:0; color: var(--accent-color);">مشغل التلاوة</h3>
-                <label>اختر القارئ:</label>
-                <select id="reciterSelect" onchange="loadAudio()">
-                    <option value="https://sv1.islamweb.net/media/Audio/quran/sds/1/">عبد الرحمن السديس</option>
-                    <option value="https://server11.mp3quran.net/shur/">سعود الشريم</option>
-                    <option value="https://server12.mp3quran.net/maher/">ماهر المعيقلي</option>
-                    <option value="https://server8.mp3quran.net/afs/">مشاري العفاسي</option>
-                    <option value="https://server7.mp3quran.net/abdulsamad/">عبد الباسط عبد الصمد</option>
-                    <option value="https://server6.mp3quran.net/husr/">محمود خليل الحصري</option>
-                </select>
-                <audio id="audioPlayer" controls></audio>
-            </div>
-        </div>
-
-        <!-- 2. الأحاديث (30 حديثاً) -->
-        <div id="hadithTab" class="tab-content">
-            <div class="card">
-                <h3 style="color: var(--accent-color);">الأحاديث النبوية الشريفة (30 حديثاً)</h3>
-                <div id="hadithList" style="max-height: 500px; overflow-y: auto;"></div>
-            </div>
-        </div>
-
-        <!-- 3. الأذكار (30 ذكراً) -->
-        <div id="azkarTab" class="tab-content">
-            <div class="card">
-                <h3 style="color: var(--accent-color);">أذكار المسلم (30 ذكراً)</h3>
-                <div id="azkarList" style="max-height: 500px; overflow-y: auto;"></div>
-            </div>
-        </div>
-
-        <!-- 4. الإعدادات والمطور -->
-        <div id="settingsTab" class="tab-content">
-            <div class="card">
-                <h3 style="color: var(--accent-color);">الإعدادات والتفضيلات</h3>
-                <label>المظهر (الوضع الداكن / الفاتح):</label>
-                <button class="action-btn" onclick="toggleTheme()">تبديل الوضع الداكن 🌙 / الفاتح ☀️</button>
-                
-                <br><br>
-                <label>نمط وشكل الساعة العلوية (5 أنماط):</label>
-                <select id="clockStyleSelect" onchange="changeClockStyle()">
-                    <option value="clock-style-1">النمط 1: زجاجي شفاف (Classic)</option>
-                    <option value="clock-style-2">النمط 2: إطار منقط داكن</option>
-                    <option value="clock-style-3">النمط 3: تدرج دائري فاخر</option>
-                    <option value="clock-style-4">النمط 4: خطوط عصرية</option>
-                    <option value="clock-style-5">النمط 5: كارت أبيض بارز</option>
-                </select>
-
-                <br><br>
-                <label>تخصيص لون التطبيق وحواف الشاشة:</label>
-                <select id="colorSelect" onchange="changeAppColor()">
-                    <option value="#1b4d3e">أخضر إسلامي</option>
-                    <option value="#b71c1c">أحمر ملكي</option>
-                    <option value="#0d47a1">أزرق عميق</option>
-                    <option value="#f57f17">أصفر ذهبي</option>
-                    <option value="#4a148c">أرجواني فاخر</option>
-                    <option value="#212121">أسود فخم</option>
-                </select>
-            </div>
-
-            <div class="card">
-                <h3 style="color: var(--accent-color);">معلومات التطبيق والمطور</h3>
-                <div class="info-row">
-                    <span>إصدار التطبيق:</span>
-                    <span>v5.1.0 (Ultimate Pro)</span>
+            <!-- 2. الأحاديث (30 حديثاً) -->
+            <div id="hadithTab" class="tab-content">
+                <div class="card">
+                    <h3 style="color: var(--accent-color);">الأحاديث النبوية الشريفة (30 حديثاً)</h3>
+                    <div id="hadithList" style="max-height: 500px; overflow-y: auto;"></div>
                 </div>
-                <div class="info-row">
-                    <span>اسم المطور:</span>
-                    <span style="font-weight: bold; color: var(--accent-color);">Raouf 5Pro</span>
+            </div>
+
+            <!-- 3. الأذكار (30 ذكراً) -->
+            <div id="azkarTab" class="tab-content">
+                <div class="card">
+                    <h3 style="color: var(--accent-color);">أذكار المسلم (30 ذكراً)</h3>
+                    <div id="azkarList" style="max-height: 500px; overflow-y: auto;"></div>
                 </div>
-                <div class="info-row">
-                    <span>محرك التشغيل:</span>
-                    <span>HTML5 / WebView Optimized</span>
+            </div>
+
+            <!-- 4. الإعدادات والمطور -->
+            <div id="settingsTab" class="tab-content">
+                <div class="card">
+                    <h3 style="color: var(--accent-color);">الإعدادات والتفضيلات</h3>
+                    <label>المظهر (الوضع الداكن / الفاتح):</label>
+                    <button class="action-btn" onclick="toggleTheme()">تبديل الوضع الداكن 🌙 / الفاتح ☀️</button>
+                    
+                    <br><br>
+                    <label>نمط وشكل الساعة العلوية (5 أنماط):</label>
+                    <select id="clockStyleSelect" onchange="changeClockStyle()">
+                        <option value="clock-style-1">النمط 1: زجاجي شفاف (Classic)</option>
+                        <option value="clock-style-2">النمط 2: إطار منقط داكن</option>
+                        <option value="clock-style-3">النمط 3: تدرج دائري فاخر</option>
+                        <option value="clock-style-4">النمط 4: خطوط عصرية</option>
+                        <option value="clock-style-5">النمط 5: كارت أبيض بارز</option>
+                    </select>
+
+                    <br><br>
+                    <label>تخصيص لون التطبيق وحواف الشاشة:</label>
+                    <select id="colorSelect" onchange="changeAppColor()">
+                        <option value="#1b4d3e">أخضر إسلامي</option>
+                        <option value="#b71c1c">أحمر ملكي</option>
+                        <option value="#0d47a1">أزرق عميق</option>
+                        <option value="#f57f17">أصفر ذهبي</option>
+                        <option value="#4a148c">أرجواني فاخر</option>
+                        <option value="#212121">أسود فخم</option>
+                    </select>
                 </div>
-                <div class="info-row">
-                    <span>حالة التحديثات:</span>
-                    <span style="color: #4cd964; font-weight: bold;">محدث لأحدث إصدار رسمياً</span>
+
+                <div class="card">
+                    <h3 style="color: var(--accent-color);">معلومات التطبيق والمطور</h3>
+                    <div class="info-row">
+                        <span>إصدار التطبيق:</span>
+                        <span>v5.2.0 (Ultimate Pro)</span>
+                    </div>
+                    <div class="info-row">
+                        <span>اسم المطور:</span>
+                        <span style="font-weight: bold; color: var(--accent-color);">Raouf 5Pro</span>
+                    </div>
+                    <div class="info-row">
+                        <span>محرك التشغيل:</span>
+                        <span>HTML5 / WebView Optimized</span>
+                    </div>
+                    <div class="info-row">
+                        <span>حالة التحديثات:</span>
+                        <span style="color: var(--accent-color); font-weight: bold;">محدث لأحدث إصدار رسمياً</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -491,7 +497,11 @@
 
         function toggleTheme() {
             const html = document.getElementById('htmlTag');
-            html.toggleAttribute('data-theme');
+            if (html.hasAttribute('data-theme')) {
+                html.removeAttribute('data-theme');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+            }
         }
 
         function changeClockStyle() {
